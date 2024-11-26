@@ -1,30 +1,26 @@
 package com.tourism.travel_canvas.model;
 
 import java.time.LocalDateTime;
-
 import java.util.Optional;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(schema = "tourism", name = "destination")
-public class Destination {
+@Table(schema = "tourism", name = "visa_requirement")
+public class VisaRequirement {
 	
-
+	
 	@Id
-//	@SequenceGenerator(initialValue = 1, name = "company_master_seq", allocationSize = 0)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_master_seq")
-	private Integer destinationid;
-	private Integer cityid;
-	private Integer countryid;
+	private Integer visarequirementid;
+	private Integer from_country;
+	private Integer to_country;
 	private Character activeflag;
+	private Integer  processing_time;
+	private Double visafee;
 	private String createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -35,28 +31,28 @@ public class Destination {
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Optional<LocalDateTime> moddt = Optional.empty();
 
-	public Integer getDestinationid() {
-		return destinationid;
+	public Integer getVisarequirementid() {
+		return visarequirementid;
 	}
 
-	public void setDestinationid(Integer destinationid) {
-		this.destinationid = destinationid;
+	public void setVisarequirementid(Integer visarequirementid) {
+		this.visarequirementid = visarequirementid;
 	}
 
-	public Integer getCityid() {
-		return cityid;
+	public Integer getFrom_country() {
+		return from_country;
 	}
 
-	public void setCityid(Integer cityid) {
-		this.cityid = cityid;
+	public void setFrom_country(Integer from_country) {
+		this.from_country = from_country;
 	}
 
-	public Integer getCountryid() {
-		return countryid;
+	public Integer getTo_country() {
+		return to_country;
 	}
 
-	public void setCountryid(Integer countryid) {
-		this.countryid = countryid;
+	public void setTo_country(Integer to_country) {
+		this.to_country = to_country;
 	}
 
 	public Character getActiveflag() {
@@ -65,6 +61,22 @@ public class Destination {
 
 	public void setActiveflag(Character activeflag) {
 		this.activeflag = activeflag;
+	}
+
+	public Integer getProcessing_time() {
+		return processing_time;
+	}
+
+	public void setProcessing_time(Integer processing_time) {
+		this.processing_time = processing_time;
+	}
+
+	public Double getVisafee() {
+		return visafee;
+	}
+
+	public void setVisafee(Double visafee) {
+		this.visafee = visafee;
 	}
 
 	public String getCreateby() {
@@ -100,18 +112,11 @@ public class Destination {
 	}
 
 	
-	
-	
-	@Override
-	public String toString() {
-		return "Destination [destinationid=" + destinationid + ", cityid=" + cityid + ", countryid=" + countryid
-				+ ", activeflag=" + activeflag + ", createby=" + createby + ", createdt=" + createdt + ", modby="
-				+ modby + ", moddt=" + moddt + "]";
-	}
+
+
 
 	
 	
 	
-
 
 }
