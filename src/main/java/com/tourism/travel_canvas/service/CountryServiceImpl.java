@@ -44,34 +44,36 @@ public class CountryServiceImpl implements CountryService {
 		}
 	}
 
+	
+	
 	@Override
 	public Country updateCountryDetails(Country country) {
+	    try {
+	        if (countryRepository.existsByCountrynameIgnoreCase(country.getCountryname())) {
+	            throw new IllegalArgumentException("Country name already exists. Update operation is skipped.");
+	        }
 
-		if (countryRepository.existsByCountrynameIgnoreCase(country.getCountryname())) {
-			throw new IllegalArgumentException("Country name already exists. Update operation is skipped.");
-		}
+	        Optional<Country> optionalCountry = countryRepository.findById(country.getCountryid());
 
-		Optional<Country> optionalCountry = countryRepository.findById(country.getCountryid());
+	        if (optionalCountry.isPresent()) {
+	            Country countryobj = optionalCountry.get();
 
-		if (optionalCountry.isPresent()) {
+	            countryobj.setCountryname(country.getCountryname());
+	            countryobj.setActiveflag(country.getActiveflag());
+	            countryobj.setModby(country.getModby());
+	            countryobj.setModdt(country.getModdt());
 
-			Country countryobj = optionalCountry.get();
-
-			countryobj.setCountryname(country.getCountryname());
-			countryobj.setActiveflag(country.getActiveflag());
-
-			countryobj.setModby(country.getModby());
-//			countryobj.setModdt(Optional.of(LocalDateTime.now()));
-
-			countryobj.setModdt((country.getModdt()));
-
-			return countryRepository.save(country);
-
-		}
-
-		else {
-			throw new EntityNotFoundException("Country not found with id " + country.getCountryid());
-		}
+	            return countryRepository.save(countryobj);
+	        } else {
+	            throw new EntityNotFoundException("Country not found with id " + country.getCountryid());
+	        }
+	    } catch (IllegalArgumentException | EntityNotFoundException e) {
+	        throw e; // Rethrow to propagate specific exceptions.
+	    } catch (Exception e) {
+	        // Log the exception and throw a custom runtime exception.
+	        throw new RuntimeException("An error occurred while updating country details: " + e.getMessage(), e);
+	    }
 	}
+
 
 }
