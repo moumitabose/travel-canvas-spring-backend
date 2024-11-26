@@ -1,6 +1,8 @@
 package com.tourism.travel_canvas.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(schema = "tourism", name = "country")
 public class Country {
-	
+
 	@Id
 	private Integer countryid;
 	private String countryname;
@@ -19,12 +21,12 @@ public class Country {
 	private String createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date createdt;
+	private LocalDateTime createdt;
 
-	private String modby;
+	private Optional<String> modby = Optional.empty();
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Date moddt;
+	private Optional<LocalDateTime> moddt = Optional.empty();
 
 	public Integer getCountryid() {
 		return countryid;
@@ -58,36 +60,33 @@ public class Country {
 		this.createby = createby;
 	}
 
-	public Date getCreatedt() {
+	public LocalDateTime getCreatedt() {
 		return createdt;
 	}
 
-	public void setCreatedt(Date createdt) {
+	public void setCreatedt(LocalDateTime createdt) {
 		this.createdt = createdt;
 	}
 
-	public String getModby() {
+	public Optional<String> getModby() {
 		return modby;
 	}
 
-	public void setModby(String modby) {
+	public void setModby(Optional<String> modby) {
 		this.modby = modby;
 	}
 
-	public Date getModdt() {
+	public Optional<LocalDateTime> getModdt() {
 		return moddt;
 	}
 
-	public void setModdt(Date moddt) {
+	public void setModdt(Optional<LocalDateTime> moddt) {
 		this.moddt = moddt;
 	}
-	
-	
-	
-	
 
-
-	
-	
+	@Override
+	public String toString() {
+		return String.format("Country[id=%d, name='%s', activeflag='%s']", countryid, countryname, activeflag);
+	}
 
 }
