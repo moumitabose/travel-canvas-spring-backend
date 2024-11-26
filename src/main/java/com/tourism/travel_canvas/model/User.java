@@ -13,36 +13,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Table(schema = "tourism", name = "user")
 
 public class User {
-	
+
 	@Id
 	private Integer userid;
-	public User(Integer userid, String name, String role, String country, Integer createby, LocalDateTime createdt) {
-		super();
-		this.userid = userid;
-		this.name = name;
-		this.role = role;
-		this.country = country;
-		this.createby = createby;
-		this.createdt = createdt;
-	}
-
-	public User(Integer userid, String name, String role, String country, Integer createby, LocalDateTime createdt,
-			Optional<Integer> modby, Optional<LocalDateTime> moddt) {
-		super();
-		this.userid = userid;
-		this.name = name;
-		this.role = role;
-		this.country = country;
-		this.createby = createby;
-		this.createdt = createdt;
-		this.modby = modby != null ? modby : Optional.empty();
-        this.moddt = moddt != null ? moddt : Optional.empty();
-	}
 
 	private String name;
-	private String role;
+	private Integer roleid;
 	private String country;
-	
+
 	private Integer createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
@@ -52,6 +30,35 @@ public class User {
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Optional<LocalDateTime> moddt = Optional.empty();
+
+	public User(Integer userid, String name, Integer roleid, String country, Integer createby, LocalDateTime createdt,
+			Optional<Integer> modby, Optional<LocalDateTime> moddt) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.roleid = roleid;
+		this.country = country;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby != null ? modby : Optional.empty();
+		this.moddt = moddt != null ? moddt : Optional.empty();
+	}
+
+	public User(Integer userid, String name, Integer roleid, String country, Integer createby, LocalDateTime createdt) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.roleid = roleid;
+		this.country = country;
+		this.createby = createby;
+		this.createdt = createdt;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userid=" + userid + ", name=" + name + ", roleid=" + roleid + ", country=" + country
+				+ ", createby=" + createby + ", createdt=" + createdt + ", modby=" + modby + ", moddt=" + moddt + "]";
+	}
 
 	public Integer getUserid() {
 		return userid;
@@ -69,12 +76,12 @@ public class User {
 		this.name = name;
 	}
 
-	public String getRole() {
-		return role;
+	public Integer getRoleid() {
+		return roleid;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoleid(Integer roleid) {
+		this.roleid = roleid;
 	}
 
 	public String getCountry() {
@@ -116,9 +123,6 @@ public class User {
 	public void setModdt(Optional<LocalDateTime> moddt) {
 		this.moddt = moddt;
 	}
-	
-	
-	
 	
 	
 	

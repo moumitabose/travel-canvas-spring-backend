@@ -31,8 +31,8 @@ public class UserServiceTest {
 	@Test
 	void getAllUserDetails_test_success() {
 
-		List<User> userList=List.of(new User(1, "Moumita Bose", "Admin", "India", 1, LocalDateTime.now()),
-				new User(2, "Sumit Paul", "Moderator", "India", 1, LocalDateTime.now()));
+		List<User> userList=List.of(new User(1, "Moumita Bose", 1, "India", 1, LocalDateTime.now()),
+				new User(2, "Sumit Paul", 2, "India", 1, LocalDateTime.now()));
 		
 		when(userRepository.getAllUserDetails()).thenReturn(userList);
 		
