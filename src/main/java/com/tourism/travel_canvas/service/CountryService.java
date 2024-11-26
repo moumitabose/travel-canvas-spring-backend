@@ -9,5 +9,7 @@ public interface CountryService {
 	public List<Country> getAllCountries();
 	
 	public Country saveCountryDetails(Country country);
+	
+	public Country updateCountryDetails(Country country);
 
 }

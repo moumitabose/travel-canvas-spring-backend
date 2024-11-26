@@ -18,15 +18,38 @@ public class Country {
 	private Integer countryid;
 	private String countryname;
 	private Character activeflag;
-	private String createby;
+	private Integer createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdt;
 
-	private Optional<String> modby = Optional.empty();
+	private Optional<Integer> modby = Optional.empty();
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Optional<LocalDateTime> moddt = Optional.empty();
+	
+	
+
+	public Country() {
+		super();
+	}
+
+	public Country(Integer countryid, String countryname, Character activeflag, Integer createby,
+			LocalDateTime createdt, Optional<Integer> modby, Optional<LocalDateTime> moddt) {
+		super();
+		this.countryid = countryid;
+		this.countryname = countryname;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby != null ? modby : Optional.empty();
+        this.moddt = moddt != null ? moddt : Optional.empty();
+	}
+	
+	 // Constructor without modby and moddt
+    public Country(Integer countryid, String countryname, Character activeflag, Integer createby, LocalDateTime createdt) {
+        this(countryid, countryname, activeflag, createby, createdt, Optional.empty(), Optional.empty());
+    }
 
 	public Integer getCountryid() {
 		return countryid;
@@ -52,11 +75,11 @@ public class Country {
 		this.activeflag = activeflag;
 	}
 
-	public String getCreateby() {
+	public Integer getCreateby() {
 		return createby;
 	}
 
-	public void setCreateby(String createby) {
+	public void setCreateby(Integer createby) {
 		this.createby = createby;
 	}
 
@@ -68,11 +91,11 @@ public class Country {
 		this.createdt = createdt;
 	}
 
-	public Optional<String> getModby() {
+	public Optional<Integer> getModby() {
 		return modby;
 	}
 
-	public void setModby(Optional<String> modby) {
+	public void setModby(Optional<Integer> modby) {
 		this.modby = modby;
 	}
 
