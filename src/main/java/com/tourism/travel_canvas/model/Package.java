@@ -3,24 +3,23 @@ package com.tourism.travel_canvas.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-@Table(schema = "tourism", name = "destination")
-public class Destination {
+@Table(schema = "tourism", name = "package")
+public class Package {
 	
 	@Id
-//	@SequenceGenerator(initialValue = 1, name = "company_master_seq", allocationSize = 0)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_master_seq")
+	private Integer packageid;
 	private Integer destinationid;
-	private Integer cityid;
 	private Integer countryid;
+	private Integer noofdays;
+	private Integer noofnight;
+	private Double priceperperson;
+	private Character visarequirement;
 	private Character activeflag;
 	private String createby;
 
@@ -32,6 +31,14 @@ public class Destination {
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private Date moddt;
 
+	public Integer getPackageid() {
+		return packageid;
+	}
+
+	public void setPackageid(Integer packageid) {
+		this.packageid = packageid;
+	}
+
 	public Integer getDestinationid() {
 		return destinationid;
 	}
@@ -40,20 +47,44 @@ public class Destination {
 		this.destinationid = destinationid;
 	}
 
-	public Integer getCityid() {
-		return cityid;
-	}
-
-	public void setCityid(Integer cityid) {
-		this.cityid = cityid;
-	}
-
 	public Integer getCountryid() {
 		return countryid;
 	}
 
 	public void setCountryid(Integer countryid) {
 		this.countryid = countryid;
+	}
+
+	public Integer getNoofdays() {
+		return noofdays;
+	}
+
+	public void setNoofdays(Integer noofdays) {
+		this.noofdays = noofdays;
+	}
+
+	public Integer getNoofnight() {
+		return noofnight;
+	}
+
+	public void setNoofnight(Integer noofnight) {
+		this.noofnight = noofnight;
+	}
+
+	public Double getPriceperperson() {
+		return priceperperson;
+	}
+
+	public void setPriceperperson(Double priceperperson) {
+		this.priceperperson = priceperperson;
+	}
+
+	public Character getVisarequirement() {
+		return visarequirement;
+	}
+
+	public void setVisarequirement(Character visarequirement) {
+		this.visarequirement = visarequirement;
 	}
 
 	public Character getActiveflag() {
@@ -95,14 +126,11 @@ public class Destination {
 	public void setModdt(Date moddt) {
 		this.moddt = moddt;
 	}
-
-	
-	
-	
 	
 	
 	
 	
 
+	
 
 }
