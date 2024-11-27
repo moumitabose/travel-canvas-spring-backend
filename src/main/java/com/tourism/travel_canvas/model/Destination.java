@@ -13,10 +13,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+//
 @Entity
 @Table(schema = "tourism", name = "destination")
 public class Destination {
-	
 
 	@Id
 //	@SequenceGenerator(initialValue = 1, name = "company_master_seq", allocationSize = 0)
@@ -25,15 +25,49 @@ public class Destination {
 	private Integer cityid;
 	private Integer countryid;
 	private Character activeflag;
-	private String createby;
+
+	private Integer createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdt;
 
-	private Optional<String> modby = Optional.empty();
+	private Integer modby; // Changed to Integer instead of Optional<Integer>
+	private LocalDateTime moddt; // Changed to LocalDateTime instead of Optional<LocalDateTi
 
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Optional<LocalDateTime> moddt = Optional.empty();
+	public Destination() {
+		super();
+	}
+
+	public Destination(Integer destinationid, Integer cityid, Integer countryid, Character activeflag, Integer createby,
+			LocalDateTime createdt) {
+		super();
+		this.destinationid = destinationid;
+		this.cityid = cityid;
+		this.countryid = countryid;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+	}
+
+	public Destination(Integer destinationid, Integer cityid, Integer countryid, Character activeflag, Integer createby,
+			LocalDateTime createdt, Integer modby, LocalDateTime moddt) {
+		super();
+		this.destinationid = destinationid;
+		this.cityid = cityid;
+		this.countryid = countryid;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby;
+		this.moddt = moddt;
+	}
+
+	@Override
+	public String toString() {
+		return "Destination [destinationid=" + destinationid + ", cityid=" + cityid + ", countryid=" + countryid
+				+ ", activeflag=" + activeflag + ", createby=" + createby + ", createdt=" + createdt + ", modby="
+				+ modby + ", moddt=" + moddt + "]";
+	}
 
 	public Integer getDestinationid() {
 		return destinationid;
@@ -67,11 +101,11 @@ public class Destination {
 		this.activeflag = activeflag;
 	}
 
-	public String getCreateby() {
+	public Integer getCreateby() {
 		return createby;
 	}
 
-	public void setCreateby(String createby) {
+	public void setCreateby(Integer createby) {
 		this.createby = createby;
 	}
 
@@ -83,35 +117,20 @@ public class Destination {
 		this.createdt = createdt;
 	}
 
-	public Optional<String> getModby() {
+	public Integer getModby() {
 		return modby;
 	}
 
-	public void setModby(Optional<String> modby) {
+	public void setModby(Integer modby) {
 		this.modby = modby;
 	}
 
-	public Optional<LocalDateTime> getModdt() {
+	public LocalDateTime getModdt() {
 		return moddt;
 	}
 
-	public void setModdt(Optional<LocalDateTime> moddt) {
+	public void setModdt(LocalDateTime moddt) {
 		this.moddt = moddt;
 	}
-
-	
-	
-	
-	@Override
-	public String toString() {
-		return "Destination [destinationid=" + destinationid + ", cityid=" + cityid + ", countryid=" + countryid
-				+ ", activeflag=" + activeflag + ", createby=" + createby + ", createdt=" + createdt + ", modby="
-				+ modby + ", moddt=" + moddt + "]";
-	}
-
-	
-	
-	
-
 
 }

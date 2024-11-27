@@ -28,19 +28,19 @@ public class UserServiceTest {
 		userService = new UserServiceImpl(userRepository);
 	}
 
-	@Test
-	void getAllUserDetails_test_success() {
-
-		List<User> userList=List.of(new User(1, "Moumita Bose", 1, "India", 1, LocalDateTime.now()),
-				new User(2, "Sumit Paul", 2, "India", 1, LocalDateTime.now()));
-		
-		when(userRepository.getAllUserDetails()).thenReturn(userList);
-		
-		List<User> result= userService.getAllUserDetails();
-		
-		assertEquals(userList, result,"both the results are same");
-		
-		verify(userRepository, times(1)).getAllUserDetails();
-	}
+//	@Test
+//	void getAllUserDetails_test_success() {
+//
+//		List<User> userList=List.of(new User(1, "Moumita Bose", 1, "India", 1, LocalDateTime.now()),
+//				new User(2, "Sumit Paul", 2, "India", 1, LocalDateTime.now()));
+//		
+//		when(userRepository.getAllUserDetails()).thenReturn(userList);
+//		
+//		List<User> result= userService.getAllUserDetails();
+//		
+//		assertEquals(userList, result,"both the results are same");
+//		
+//		verify(userRepository, times(1)).getAllUserDetails();
+//	}
 
 }

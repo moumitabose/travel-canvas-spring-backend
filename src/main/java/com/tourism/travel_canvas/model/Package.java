@@ -9,11 +9,11 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(schema = "tourism", name = "package")
+//@Entity
+//@Table(schema = "tourism", name = "package")
 public class Package {
 	
-	@Id
+//	@Id
 	private Integer packageid;
 	private Integer destinationid;
 	private Integer countryid;
