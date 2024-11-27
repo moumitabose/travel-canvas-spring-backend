@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Role {
 	
 	private Integer roleid;
-	private Integer rolename;
+	private String rolename;
 	private Character activeflag;
 	
 	
@@ -22,10 +22,17 @@ public class Role {
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdt;
 
-	private Optional<Integer> modby = Optional.empty();
+	private Integer modby;  // Changed to Integer instead of Optional<Integer>
+	private LocalDateTime moddt;
 
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Optional<LocalDateTime> moddt = Optional.empty();
+
+	public String getRolename() {
+		return rolename;
+	}
+
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
 
 	public Integer getRoleid() {
 		return roleid;
@@ -33,14 +40,6 @@ public class Role {
 
 	public void setRoleid(Integer roleid) {
 		this.roleid = roleid;
-	}
-
-	public Integer getRolename() {
-		return rolename;
-	}
-
-	public void setRolename(Integer rolename) {
-		this.rolename = rolename;
 	}
 
 	public Character getActiveflag() {
@@ -67,24 +66,44 @@ public class Role {
 		this.createdt = createdt;
 	}
 
-	public Optional<Integer> getModby() {
+	public Integer getModby() {
 		return modby;
 	}
 
-	public void setModby(Optional<Integer> modby) {
+	public void setModby(Integer modby) {
 		this.modby = modby;
 	}
 
-	public Optional<LocalDateTime> getModdt() {
+	public LocalDateTime getModdt() {
 		return moddt;
 	}
 
-	public void setModdt(Optional<LocalDateTime> moddt) {
+	public void setModdt(LocalDateTime moddt) {
 		this.moddt = moddt;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Role{" +
+				"roleid=" + roleid +
+				", rolename='" + rolename + '\'' +
+				", activeflag=" + activeflag +
+				", createby=" + createby +
+				", createdt=" + createdt +
+				", modby=" + modby +
+				", moddt=" + moddt +
+				'}';
+	}
+
+
+	public Role(Integer roleid, String rolename, Character activeflag, Integer createby, LocalDateTime createdt) {
+		this.roleid = roleid;
+		this.rolename = rolename;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+	}
+
+
 
 }
