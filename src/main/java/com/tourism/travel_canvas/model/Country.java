@@ -20,36 +20,37 @@ public class Country {
 	private Character activeflag;
 	private Integer createby;
 
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private LocalDateTime createdt;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime createdt;
 
-	private Optional<Integer> modby = Optional.empty();
-
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Optional<LocalDateTime> moddt = Optional.empty();
-	
-	
-
-	public Country() {
-		super();
-	}
-
+    private Integer modby;  // Changed to Integer instead of Optional<Integer>
+    private LocalDateTime moddt;
+    
 	public Country(Integer countryid, String countryname, Character activeflag, Integer createby,
-			LocalDateTime createdt, Optional<Integer> modby, Optional<LocalDateTime> moddt) {
+			LocalDateTime createdt) {
 		super();
 		this.countryid = countryid;
 		this.countryname = countryname;
 		this.activeflag = activeflag;
 		this.createby = createby;
 		this.createdt = createdt;
-		this.modby = modby != null ? modby : Optional.empty();
-        this.moddt = moddt != null ? moddt : Optional.empty();
 	}
-	
-	 // Constructor without modby and moddt
-    public Country(Integer countryid, String countryname, Character activeflag, Integer createby, LocalDateTime createdt) {
-        this(countryid, countryname, activeflag, createby, createdt, Optional.empty(), Optional.empty());
-    }
+
+	public Country() {
+		super();
+	}
+
+	public Country(Integer countryid, String countryname, Character activeflag, Integer createby,
+			LocalDateTime createdt, Integer modby, LocalDateTime moddt) {
+		super();
+		this.countryid = countryid;
+		this.countryname = countryname;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby;
+		this.moddt = moddt;
+	}
 
 	public Integer getCountryid() {
 		return countryid;
@@ -91,25 +92,28 @@ public class Country {
 		this.createdt = createdt;
 	}
 
-	public Optional<Integer> getModby() {
+	public Integer getModby() {
 		return modby;
 	}
 
-	public void setModby(Optional<Integer> modby) {
+	public void setModby(Integer modby) {
 		this.modby = modby;
 	}
 
-	public Optional<LocalDateTime> getModdt() {
+	public LocalDateTime getModdt() {
 		return moddt;
 	}
 
-	public void setModdt(Optional<LocalDateTime> moddt) {
+	public void setModdt(LocalDateTime moddt) {
 		this.moddt = moddt;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Country[id=%d, name='%s', activeflag='%s']", countryid, countryname, activeflag);
+		return "Country [countryid=" + countryid + ", countryname=" + countryname + ", activeflag=" + activeflag
+				+ ", createby=" + createby + ", createdt=" + createdt + ", modby=" + modby + ", moddt=" + moddt + "]";
 	}
+	
 
+	
 }

@@ -8,8 +8,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(schema = "tourism", name = "role")
+//@Entity
+//@Table(schema = "tourism", name = "role")
 public class Role {
 	
 	private Integer roleid;

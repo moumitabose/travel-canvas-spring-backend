@@ -21,38 +21,14 @@ public class User {
 	private Integer roleid;
 	private String country;
 
+	// email,//password
+
 	private Integer createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdt;
 
-	private Optional<Integer> modby = Optional.empty();
-
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-	private Optional<LocalDateTime> moddt = Optional.empty();
-
-	public User(Integer userid, String name, Integer roleid, String country, Integer createby, LocalDateTime createdt,
-			Optional<Integer> modby, Optional<LocalDateTime> moddt) {
-		super();
-		this.userid = userid;
-		this.name = name;
-		this.roleid = roleid;
-		this.country = country;
-		this.createby = createby;
-		this.createdt = createdt;
-		this.modby = modby != null ? modby : Optional.empty();
-		this.moddt = moddt != null ? moddt : Optional.empty();
-	}
-
-	public User(Integer userid, String name, Integer roleid, String country, Integer createby, LocalDateTime createdt) {
-		super();
-		this.userid = userid;
-		this.name = name;
-		this.roleid = roleid;
-		this.country = country;
-		this.createby = createby;
-		this.createdt = createdt;
-	}
+	private Integer modby;
 
 	@Override
 	public String toString() {
@@ -66,6 +42,33 @@ public class User {
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
+	}
+
+	public User() {
+		super();
+	}
+
+	public User(Integer userid, String name, Integer roleid, String country, Integer createby, LocalDateTime createdt) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.roleid = roleid;
+		this.country = country;
+		this.createby = createby;
+		this.createdt = createdt;
+	}
+
+	public User(Integer userid, String name, Integer roleid, String country, Integer createby, LocalDateTime createdt,
+			Integer modby, LocalDateTime moddt) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.roleid = roleid;
+		this.country = country;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby;
+		this.moddt = moddt;
 	}
 
 	public String getName() {
@@ -108,23 +111,22 @@ public class User {
 		this.createdt = createdt;
 	}
 
-	public Optional<Integer> getModby() {
+	public Integer getModby() {
 		return modby;
 	}
 
-	public void setModby(Optional<Integer> modby) {
+	public void setModby(Integer modby) {
 		this.modby = modby;
 	}
 
-	public Optional<LocalDateTime> getModdt() {
+	public LocalDateTime getModdt() {
 		return moddt;
 	}
 
-	public void setModdt(Optional<LocalDateTime> moddt) {
+	public void setModdt(LocalDateTime moddt) {
 		this.moddt = moddt;
 	}
-	
-	
-	
+
+	private LocalDateTime moddt;
 
 }
