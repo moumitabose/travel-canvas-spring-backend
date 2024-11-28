@@ -4,8 +4,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(schema = "tourism", name = "city")
 public class City {
 
+	@Id
     private Integer cityid;
     private Integer countryid;
     private String cityname;
