@@ -15,7 +15,7 @@ public interface CityRepository extends JpaRepository<City, Integer> {
 	
 	@Query(value = "SELECT ci.*,co.countryname FROM tourism.city ci\r\n"
 			+ "LEFT JOIN tourism.country co ON ci.countryid=co.countryid\r\n"
-			+ "WHERE d.activeflag='Y'", nativeQuery = true)
+			+ "WHERE ci.activeflag='Y'", nativeQuery = true)
 	public List<AllCityDetails> getAllCityDetails();
 	
 	

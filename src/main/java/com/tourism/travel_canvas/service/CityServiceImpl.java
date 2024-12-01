@@ -3,6 +3,7 @@ package com.tourism.travel_canvas.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tourism.travel_canvas.model.City;
@@ -13,6 +14,7 @@ import com.tourism.travel_canvas.repository.CityRepository;
 @Service
 public class CityServiceImpl implements CityService {
 
+	@Autowired
 	private CityRepository cityRepository;
 
 	@Override
@@ -38,10 +40,6 @@ public class CityServiceImpl implements CityService {
 
 	}
 
-	@Override
-	public List<City> test() {
-		
-		return cityRepository.findAll();
-	}
+
 
 }

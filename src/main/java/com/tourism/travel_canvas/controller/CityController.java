@@ -22,10 +22,6 @@ public class CityController {
 		return cityService.getAllCityDetails();
 	}
 	
-	@GetMapping("/citytest")
-	public List<City> test()
-	{
-		return cityService.test();
-	}
+
 
 }

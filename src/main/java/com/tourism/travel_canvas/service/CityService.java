@@ -9,7 +9,7 @@ public interface CityService {
 	
 	public List<AllCityDetailsBean> getAllCityDetails();
 	
-	public List<City> test();
+
 	
 
 }
