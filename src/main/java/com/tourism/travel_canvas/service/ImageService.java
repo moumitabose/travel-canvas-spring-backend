@@ -7,9 +7,11 @@ import java.io.IOException;
 
 public interface ImageService {
 
-    public byte[] getImageById(Integer id);
+    public byte[] getImageById(Integer imageid);
 
     public Image saveImage(MultipartFile file) throws IOException;
+   
+    public Image  getImageDetailsByDestinationId(Image image);
 
 
 
