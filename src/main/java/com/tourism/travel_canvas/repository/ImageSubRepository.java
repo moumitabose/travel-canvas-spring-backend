@@ -10,11 +10,12 @@ import com.tourism.travel_canvas.model.ImageSub;
 
 @Repository
 public interface ImageSubRepository extends JpaRepository<ImageSub, Integer> {
-	
-	
-	@Query(value = "SELECT is.* FROM tourism.image_sub is\r\n"
-			+ "LEFT JOIN tourism.destination d ON is.destinationid=d.destinationid\r\n"
-			+ "WHERE is.activeflag='Y' AND i.destinationid=:destinationid", nativeQuery = true)
+
+
+	@Query(value = "SELECT img.* FROM tourism.image_sub img\r\n"
+			+ "LEFT JOIN tourism.destination d ON img.destinationid = d.destinationid\r\n"
+			+ "WHERE img.activeflag = 'Y' AND img.destinationid = :destinationid",
+			nativeQuery = true)
 	public List<ImageSub> getAllSubImageDetailsByDestinationId(Integer destinationid);
 
 }

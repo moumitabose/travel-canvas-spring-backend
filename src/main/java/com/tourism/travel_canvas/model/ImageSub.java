@@ -27,7 +27,7 @@ public class ImageSub {
 
 	@Lob
 	@Type(type = "org.hibernate.type.BinaryType") // Explicitly map the field to BinaryType
-	@Column(name = "image_data", columnDefinition = "bytea")
+	@Column(name = "image_sub_data", columnDefinition = "bytea")
 	private byte[] imageSubData;
 	private Integer destinationid;
 	private Character activeflag;

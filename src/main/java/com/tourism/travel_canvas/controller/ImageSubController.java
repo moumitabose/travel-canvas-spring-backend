@@ -31,7 +31,7 @@ public class ImageSubController {
 		return new ResponseEntity<>(savedImage, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/getAllSubImageDetailsByDestinationId")
+	@PostMapping("/getAllSubImageDetailsByDestinationId")
 	public ResponseEntity<List<ImageSub>> getAllSubImageDetailsByDestinationId(@RequestBody ImageSub imageSub) {
 
 		List<ImageSub> resultImageSub = imageSubService.getAllSubImageDetailsByDestinationId(imageSub);
