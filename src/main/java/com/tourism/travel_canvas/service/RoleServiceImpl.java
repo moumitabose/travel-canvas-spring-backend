@@ -49,19 +49,19 @@ public class RoleServiceImpl implements RoleService {
 
 		return resultRole;
 	}
-	
+
 
 	@Override
 	public List<Role> getAllRolesByRoleName(Role role) {
-		
+
 		List<Role> resultRoleList = roleRepository.getAllRolesByRoleName(role.getRolename());
-		
+
 		if (resultRoleList == null || resultRoleList.isEmpty()) {
 			throw new RoleNotFoundException("Empty List Of Role with this Role Name: "+ role.getRolename());
 		}
 
 		return resultRoleList;
-		
+
 
 	}
 
@@ -75,38 +75,42 @@ public class RoleServiceImpl implements RoleService {
 		}
 
 		return savedRole;
-	}
 
-	@Override
-	public Role updateRoledetails(Role role) throws IOException {
-
-		boolean duplicateRoleNameFlag = roleRepository.getAllRoles().stream()
-				.anyMatch(r -> r.getRolename().equalsIgnoreCase(role.getRolename()));
-
-		if (!duplicateRoleNameFlag) {
-
-			Role existingRole = roleRepository.updateRoledetails(role.getRolename(), role.getModdt(), role.getModby(),
-					role.getRoleid());
-
-			return existingRole;
-
-		} else {
-			throw new UpdateFailedException("Role name already exists, update not possible");
-		}
-	}
-
-	@Override
-	public Role deleteRoledetails(Role role) throws IOException {
-
-		Role roleToBeDelete = roleRepository.deleteRoledetails(role.getModdt(), role.getModby(), role.getRoleid());
-
-		if (roleToBeDelete == null) {
-			throw new DeleteFailedException("Delete operation failed for role");
-		}
-
-		return roleToBeDelete;
 
 	}
+
+
+//
+//	@Override
+//	public Role updateRoledetails(Role role) throws IOException {
+//
+//		boolean duplicateRoleNameFlag = roleRepository.getAllRoles().stream()
+//				.anyMatch(r -> r.getRolename().equalsIgnoreCase(role.getRolename()));
+//
+//		if (!duplicateRoleNameFlag) {
+//
+//			Role existingRole = roleRepository.updateRoledetails(role.getRolename(), role.getModdt(), role.getModby(),
+//					role.getRoleid());
+//
+//			return existingRole;
+//
+//		} else {
+//			throw new UpdateFailedException("Role name already exists, update not possible");
+//		}
+//	}
+//
+//	@Override
+//	public Role deleteRoledetails(Role role) throws IOException {
+//
+//		Role roleToBeDelete = roleRepository.deleteRoledetails(role.getModdt(), role.getModby(), role.getRoleid());
+//
+//		if (roleToBeDelete == null) {
+//			throw new DeleteFailedException("Delete operation failed for role");
+//		}
+//
+//		return roleToBeDelete;
+//
+//	}
 
 
 }

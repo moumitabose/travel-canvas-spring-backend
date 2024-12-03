@@ -36,8 +36,8 @@ public class RoleController {
 		Role resultRole=roleService.getRoleDetailsByRoleId(role);
 		return ResponseEntity.ok(resultRole); // 200 OK with role details
 	}
-	
-	
+
+
 	@PostMapping("/getAllRolesByRoleName")
 	public ResponseEntity<List<Role>> getAllRolesByRoleName(@RequestBody Role role) {
 		if (role == null || role.getRoleid() == null) {
@@ -46,7 +46,7 @@ public class RoleController {
 		List<Role> resultRoleList=roleService.getAllRolesByRoleName(role);
 		return ResponseEntity.ok(resultRoleList); // 200 OK with role details
 	}
-	
+
 
 	@PostMapping("/saveRoledetails")
 	public ResponseEntity<Role> saveRoledetails(@RequestBody Role role) throws IOException {
@@ -55,18 +55,20 @@ public class RoleController {
 		return new ResponseEntity<>(saveRoleDetails, HttpStatus.CREATED);
 	}
 
-	@PostMapping("/updateRoledetails")
-	public ResponseEntity<Role> updateRoledetails(@RequestBody Role role) throws IOException {
+//	@PostMapping("/updateRoledetails")
+//	public ResponseEntity<Role> updateRoledetails(@RequestBody Role role) throws IOException {
+//
+//		Role updateRoleDetails = roleService.updateRoledetails(role);
+//		return new ResponseEntity<>(updateRoleDetails, HttpStatus.CREATED);
+//	}
+//
+//	@PostMapping("/deleteRoledetails")
+//	public ResponseEntity<Role> deleteRoledetails(@RequestBody Role role) throws IOException {
+//
+//		Role deleteRoledetails = roleService.deleteRoledetails(role);
+//		return new ResponseEntity<>(deleteRoledetails, HttpStatus.CREATED);
+//	}
 
-		Role updateRoleDetails = roleService.updateRoledetails(role);
-		return new ResponseEntity<>(updateRoleDetails, HttpStatus.CREATED);
-	}
-	
-	@PostMapping("/deleteRoledetails")
-	public ResponseEntity<Role> deleteRoledetails(@RequestBody Role role) throws IOException {
 
-		Role deleteRoledetails = roleService.deleteRoledetails(role);
-		return new ResponseEntity<>(deleteRoledetails, HttpStatus.CREATED);
-	}
 
 }

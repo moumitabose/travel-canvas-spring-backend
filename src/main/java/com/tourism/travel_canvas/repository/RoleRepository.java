@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.tourism.travel_canvas.model.Role;
@@ -26,15 +27,22 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 	public List<Role> getAllRolesByRoleName(String rolename);
 
 	@Modifying
-	@Query(value = "UPDATE tourism.role SET rolename=:rolename,moddt=:moddt,modby=:modby "
+	@Query(value = "UPDATE tourism.role SET rolename=:rolename, activeflag='N',moddt=:moddt,modby=:modby "
 			+ " WHERE roleid=:roleid", nativeQuery = true)
 	@Transactional
 	public Role updateRoledetails(String rolename, LocalDateTime moddt, Integer modby, Integer roleid);
 
-	@Modifying
-	@Query(value = "UPDATE tourism.role SET activeflag='N',moddt=:moddt,modby=:modby "
-			+ " WHERE roleid=:roleid", nativeQuery = true)
-	@Transactional
-	public Role deleteRoledetails(LocalDateTime moddt, Integer modby, Integer roleid);
+
+
+
+//	@Modifying
+//	@Query(value = "UPDATE tourism.role SET activeflag='N',moddt=:moddt,modby=:modby "
+//			+ " WHERE roleid=:roleid", nativeQuery = true)
+//	@Transactional
+//	public Role deleteRoledetails(LocalDateTime moddt, Integer modby, Integer roleid);
+
+//
+//	@Query(value = "SELECT COUNT(*) FROM tourism.role", nativeQuery = true)
+//	int countRoles();
 
 }
