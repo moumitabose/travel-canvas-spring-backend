@@ -69,15 +69,19 @@
 			<!-- You can use the latest version of Mockito 3.x -->
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			</dependency>
 
 
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
@@ -86,7 +90,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
-		
+
 		<finalName>travelcanvas</finalName>
 	</build>
 

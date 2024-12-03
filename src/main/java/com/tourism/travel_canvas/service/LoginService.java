@@ -4,6 +4,6 @@ import com.tourism.travel_canvas.model.Login;
 
 public interface LoginService {
 	
-	 public Login login(Login login);
+	 public Login findLoginByUserId(Login login);
 
 }

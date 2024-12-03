@@ -1,30 +1,33 @@
 package com.tourism.travel_canvas.model;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-//@Entity
-//@Table(schema = "tourism", name = "role")
+@Entity
+@Table(schema = "tourism", name = "role")
 public class Role {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer roleid;
 	private String rolename;
 	private Character activeflag;
-	
-	
+
 	private Integer createby;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdt;
 
-	private Integer modby;  // Changed to Integer instead of Optional<Integer>
+	private Integer modby; 
 	private LocalDateTime moddt;
-
 
 	public String getRolename() {
 		return rolename;
@@ -84,17 +87,9 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return "Role{" +
-				"roleid=" + roleid +
-				", rolename='" + rolename + '\'' +
-				", activeflag=" + activeflag +
-				", createby=" + createby +
-				", createdt=" + createdt +
-				", modby=" + modby +
-				", moddt=" + moddt +
-				'}';
+		return "Role{" + "roleid=" + roleid + ", rolename='" + rolename + '\'' + ", activeflag=" + activeflag
+				+ ", createby=" + createby + ", createdt=" + createdt + ", modby=" + modby + ", moddt=" + moddt + '}';
 	}
-
 
 	public Role(Integer roleid, String rolename, Character activeflag, Integer createby, LocalDateTime createdt) {
 		this.roleid = roleid;
@@ -104,6 +99,20 @@ public class Role {
 		this.createdt = createdt;
 	}
 
+	public Role(Integer roleid, String rolename, Character activeflag, Integer createby, LocalDateTime createdt,
+			Integer modby, LocalDateTime moddt) {
+		super();
+		this.roleid = roleid;
+		this.rolename = rolename;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby;
+		this.moddt = moddt;
+	}
 
+	public Role() {
+		super();
+	}
 
 }
