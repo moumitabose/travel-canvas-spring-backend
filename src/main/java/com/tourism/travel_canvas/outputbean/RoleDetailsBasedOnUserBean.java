@@ -1,46 +1,42 @@
-package com.tourism.travel_canvas.model;
+package com.tourism.travel_canvas.outputbean;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-@Entity
-@Table(schema = "tourism", name = "user")
+public class RoleDetailsBasedOnUserBean {
 
-public class User {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userid;
 
 	private String name;
-	@ManyToOne
-	@JoinColumn(name = "roleid", referencedColumnName = "roleid") // foreign key
-	private Role role; // Establishes the relationship with the Role table
 
-	private Integer countryid;
 	private String email;
 	private String password;
-	private String activeflag;
-
 
 	private Integer createby;
+	private String createname;
 
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdt;
 
 	private Integer modby;
+	private String modname;
+
+	public String getModname() {
+		return modname;
+	}
+
+	public void setModname(String modname) {
+		this.modname = modname;
+	}
 
 	private LocalDateTime moddt;
+
+	private Integer roleid;
+	private String rolename;
+	private Integer countryid;
+	private String countryname;
+	private String activeflag;
 
 	public Integer getUserid() {
 		return userid;
@@ -56,14 +52,6 @@ public class User {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
 	}
 
 	public Integer getCountryid() {
@@ -122,6 +110,30 @@ public class User {
 		this.moddt = moddt;
 	}
 
+	public Integer getRoleid() {
+		return roleid;
+	}
+
+	public void setRoleid(Integer roleid) {
+		this.roleid = roleid;
+	}
+
+	public String getRolename() {
+		return rolename;
+	}
+
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
+
+	public String getCountryname() {
+		return countryname;
+	}
+
+	public void setCountryname(String countryname) {
+		this.countryname = countryname;
+	}
+
 	public String getActiveflag() {
 		return activeflag;
 	}
@@ -129,6 +141,13 @@ public class User {
 	public void setActiveflag(String activeflag) {
 		this.activeflag = activeflag;
 	}
-	
+
+	public String getCreatename() {
+		return createname;
+	}
+
+	public void setCreatename(String createname) {
+		this.createname = createname;
+	}
 
 }
