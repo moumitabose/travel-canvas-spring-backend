@@ -1,17 +1,32 @@
 package com.tourism.travel_canvas.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
-@Table(schema = "rma", name = "sysuser")
+@Table(schema = "tourism", name = "login")
 public class Login {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userid;
 	private String username;
 	private String password;
+	private Date todt;
+	private Date fromdt;
+
+	private Character activeflag;
+
+	private Integer createby;
+
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime createdt;
+
+	private Integer modby;
+	private LocalDateTime moddt;
 
 	public Integer getUserid() {
 		return userid;
@@ -37,4 +52,59 @@ public class Login {
 		this.password = password;
 	}
 
+	public Date getTodt() {
+		return todt;
+	}
+
+	public void setTodt(Date todt) {
+		this.todt = todt;
+	}
+
+	public Date getFromdt() {
+		return fromdt;
+	}
+
+	public void setFromdt(Date fromdt) {
+		this.fromdt = fromdt;
+	}
+
+	public Character getActiveflag() {
+		return activeflag;
+	}
+
+	public void setActiveflag(Character activeflag) {
+		this.activeflag = activeflag;
+	}
+
+	public Integer getCreateby() {
+		return createby;
+	}
+
+	public void setCreateby(Integer createby) {
+		this.createby = createby;
+	}
+
+	public LocalDateTime getCreatedt() {
+		return createdt;
+	}
+
+	public void setCreatedt(LocalDateTime createdt) {
+		this.createdt = createdt;
+	}
+
+	public Integer getModby() {
+		return modby;
+	}
+
+	public void setModby(Integer modby) {
+		this.modby = modby;
+	}
+
+	public LocalDateTime getModdt() {
+		return moddt;
+	}
+
+	public void setModdt(LocalDateTime moddt) {
+		this.moddt = moddt;
+	}
 }

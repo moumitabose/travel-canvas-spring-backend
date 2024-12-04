@@ -12,7 +12,7 @@ import com.tourism.travel_canvas.model.Login;
 @Repository
 public interface LoginRepository extends JpaRepository<Login, Integer> {
 	
-	@Query(value = "SELECT * FROM  rma.sysuser WHERE username=:username and password=:password", nativeQuery = true)
+	@Query(value = "SELECT * FROM  tourism.login WHERE username=:username and password=:password", nativeQuery = true)
 	public Login findLoginByUserId(String username,String password);
 	
 	
