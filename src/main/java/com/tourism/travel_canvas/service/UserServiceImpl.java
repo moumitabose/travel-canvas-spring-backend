@@ -1,14 +1,16 @@
 package com.tourism.travel_canvas.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tourism.travel_canvas.exception.SaveFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tourism.travel_canvas.model.User;
-import com.tourism.travel_canvas.outputbean.RoleDetailsBasedOnUser;
-import com.tourism.travel_canvas.outputbean.RoleDetailsBasedOnUserBean;
+import com.tourism.travel_canvas.outputbean.AllDetails;
+import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 import com.tourism.travel_canvas.repository.UserRepository;
 
 @Service
@@ -22,14 +24,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<RoleDetailsBasedOnUserBean> getAllUserDetails() {
+	public List<AllDetailsBean> getAllUserDetails() {
 
-		List<RoleDetailsBasedOnUser> roleDetailsBasedOnUser = userRepository.getAllUserDetails();
+		List<AllDetails> roleDetailsBasedOnUser = userRepository.getAllUserDetails();
 
-		List<RoleDetailsBasedOnUserBean> roleFinalList = new ArrayList<RoleDetailsBasedOnUserBean>();
+		List<AllDetailsBean> roleFinalList = new ArrayList<AllDetailsBean>();
 
 		roleDetailsBasedOnUser.forEach(role -> {
-			RoleDetailsBasedOnUserBean roleDetails = new RoleDetailsBasedOnUserBean();
+			AllDetailsBean roleDetails = new AllDetailsBean();
 
 			roleDetails.setUserid(role.getUserid());
 			roleDetails.setName(role.getName());
@@ -58,6 +60,17 @@ public class UserServiceImpl implements UserService {
 		});
 
 		return roleFinalList;
+	}
+
+	@Override
+	public User saveUserDetails(User user) throws IOException {
+		 User resultUser= userRepository.save(user);
+
+		 if(resultUser==null)
+		 {
+			 throw new SaveFailedException("Failed to save user");
+		 }
+		 return resultUser;
 	}
 
 }

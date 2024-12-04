@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.tourism.travel_canvas.model.User;
-import com.tourism.travel_canvas.outputbean.RoleDetailsBasedOnUser;
+import com.tourism.travel_canvas.outputbean.AllDetails;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -16,9 +16,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 			+ "LEFT JOIN tourism.role r ON u.roleid=r.roleid "
 			+ "LEFT JOIN tourism.country co ON u.countryid=co.countryid WHERE u.activeflag='Y'"
 			+ "ORDER BY userid ASC  ", nativeQuery = true)
-	public List<RoleDetailsBasedOnUser> getAllUserDetails();
+	public List<AllDetails> getAllUserDetails();
 
 	@Query(value = "SELECT u.* FROM tourism.user u WHERE u.userid=:userid", nativeQuery = true)
 	public User geUserDetailsByuserid(Integer userid);
+
+
 
 }

@@ -5,10 +5,13 @@ import java.util.List;
 
 
 import com.tourism.travel_canvas.model.Role;
+import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 
 public interface RoleService {
 	
 	public List<Role> getAllRoles();
+
+	public List<AllDetailsBean> getAllRoleDetails();
 
 	public Role getRoleDetailsByRoleId(Role role);
 

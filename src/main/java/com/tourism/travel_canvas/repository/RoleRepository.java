@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.tourism.travel_canvas.outputbean.AllDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,12 +27,20 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 			nativeQuery = true)
 	public List<Role> getAllRolesByRoleName(String rolename);
 
-	@Modifying
-	@Query(value = "UPDATE tourism.role SET rolename=:rolename, activeflag='N',moddt=:moddt,modby=:modby "
-			+ " WHERE roleid=:roleid", nativeQuery = true)
+	@Modifying(clearAutomatically = true, flushAutomatically = true)
+	@Query(value = "UPDATE tourism.role r SET r.rolename=:rolename, r.activeflag='N',r.moddt=:moddt,r.modby=:modby "
+			+ " WHERE r.roleid=:roleid", nativeQuery = true)
 	@Transactional
-	public Role updateRoledetails(String rolename, LocalDateTime moddt, Integer modby, Integer roleid);
+	public void updateRoledetails(String rolename, LocalDateTime moddt, Integer modby, Integer roleid);
 
+}
+
+
+
+//	@Modifying
+//	@Transactional
+//	@Query(value = "UPDATE SAMPLE_TABLE st SET st.status=:flag WHERE se.referenceNo in :ids")
+//	public int updateStatus(@Param("flag")String flag, @Param("ids")List<String> references);
 
 
 
@@ -45,4 +54,5 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 //	@Query(value = "SELECT COUNT(*) FROM tourism.role", nativeQuery = true)
 //	int countRoles();
 
-}
+
+

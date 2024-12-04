@@ -2,7 +2,7 @@ package com.tourism.travel_canvas.outputbean;
 
 import java.time.LocalDateTime;
 
-public interface RoleDetailsBasedOnUser {
+public interface AllDetails {
 
 	public Integer getUserid();
 
@@ -28,7 +28,7 @@ public interface RoleDetailsBasedOnUser {
 
 	public String getCountryname() ;
 	
-	public String getActiveflag();
+	public Character getActiveflag();
 	
 
 }

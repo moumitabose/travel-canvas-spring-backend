@@ -30,7 +30,7 @@ public class User {
 	private Integer countryid;
 	private String email;
 	private String password;
-	private String activeflag;
+	private Character activeflag;
 
 
 	private Integer createby;
@@ -122,11 +122,11 @@ public class User {
 		this.moddt = moddt;
 	}
 
-	public String getActiveflag() {
+	public Character getActiveflag() {
 		return activeflag;
 	}
 
-	public void setActiveflag(String activeflag) {
+	public void setActiveflag(Character activeflag) {
 		this.activeflag = activeflag;
 	}
 	

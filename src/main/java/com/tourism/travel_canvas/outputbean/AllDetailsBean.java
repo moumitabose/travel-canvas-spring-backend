@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class RoleDetailsBasedOnUserBean {
+public class AllDetailsBean {
 
 	private Integer userid;
 
@@ -36,7 +36,7 @@ public class RoleDetailsBasedOnUserBean {
 	private String rolename;
 	private Integer countryid;
 	private String countryname;
-	private String activeflag;
+	private Character activeflag;
 
 	public Integer getUserid() {
 		return userid;
@@ -134,11 +134,11 @@ public class RoleDetailsBasedOnUserBean {
 		this.countryname = countryname;
 	}
 
-	public String getActiveflag() {
+	public Character getActiveflag() {
 		return activeflag;
 	}
 
-	public void setActiveflag(String activeflag) {
+	public void setActiveflag(Character activeflag) {
 		this.activeflag = activeflag;
 	}
 

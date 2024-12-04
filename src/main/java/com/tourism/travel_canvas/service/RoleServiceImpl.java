@@ -1,9 +1,14 @@
 package com.tourism.travel_canvas.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
+import com.tourism.travel_canvas.model.User;
+import com.tourism.travel_canvas.outputbean.AllDetails;
+import com.tourism.travel_canvas.outputbean.AllDetailsBean;
+import com.tourism.travel_canvas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -18,66 +23,115 @@ import com.tourism.travel_canvas.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	@Autowired
-	private RoleRepository roleRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
-	public RoleServiceImpl(RoleRepository roleRepository) {
+    @Autowired
+    private UserRepository userRepository;
 
-		this.roleRepository = roleRepository;
-	}
+    public RoleServiceImpl(RoleRepository roleRepository) {
 
-	@Override
-	public List<Role> getAllRoles() {
-
-		List<Role> resultRoleList = roleRepository.getAllRoles();
-
-		if (resultRoleList.size() == 0) {
-			throw new RoleNotFoundException("Empty List Of Role");
-		}
-
-		return resultRoleList;
-	}
-
-	@Override
-	public Role getRoleDetailsByRoleId(Role role) {
-
-		Role resultRole = roleRepository.getRoleDetailsByRoleId(role.getRoleid());
-
-		if (resultRole == null) {
-			throw new RoleNotFoundException("Role not found with Role ID: " + role.getRoleid());
-		}
-
-		return resultRole;
-	}
+        this.roleRepository = roleRepository;
+    }
 
 
-	@Override
-	public List<Role> getAllRolesByRoleName(Role role) {
+    @Override
+    public List<Role> getAllRoles() {
 
-		List<Role> resultRoleList = roleRepository.getAllRolesByRoleName(role.getRolename());
+        List<Role> resultRoleList = roleRepository.getAllRoles();
 
-		if (resultRoleList == null || resultRoleList.isEmpty()) {
-			throw new RoleNotFoundException("Empty List Of Role with this Role Name: "+ role.getRolename());
-		}
+        if (resultRoleList.size() == 0) {
+            throw new RoleNotFoundException("Empty List Of Role");
+        }
 
-		return resultRoleList;
+        return resultRoleList;
+    }
+
+    @Override
+    public List<AllDetailsBean> getAllRoleDetails() {
+
+        List<Role> resultRoleList = roleRepository.getAllRoles();
+
+        List<AllDetailsBean> roleFinalList = new ArrayList<AllDetailsBean>();
+
+        resultRoleList.forEach(role -> {
+            AllDetailsBean roleDetails = new AllDetailsBean();
+
+            roleDetails.setRoleid(role.getRoleid());
+            roleDetails.setRolename(role.getRolename());
+            roleDetails.setActiveflag(role.getActiveflag());
+            roleDetails.setCreateby(role.getCreateby());
+
+            System.out.println("CREATE BY  " + role.getCreateby());
+
+            User user = userRepository.geUserDetailsByuserid(role.getCreateby());
+
+            roleDetails.setCreatename(user.getName());
+
+            roleDetails.setCreatedt(role.getCreatedt());
+
+            roleDetails.setModby(role.getModby());
+
+            System.out.println("MOD BY  " + role.getModby());
+
+            if (role.getModby() != null) {
+                User usermodby = userRepository.geUserDetailsByuserid(role.getModby());
+
+                roleDetails.setModname(usermodby.getName());
+            }
 
 
-	}
+            roleDetails.setModdt(role.getModdt());
 
-	@Override
-	public Role saveRoledetails(Role role) throws IOException {
+            roleFinalList.add(roleDetails);
 
-		Role savedRole = roleRepository.save(role);
+        });
 
-		if (savedRole == null) {
-			throw new SaveFailedException("Failed to save role");
-		}
+        return roleFinalList;
 
-		return savedRole;
+    }
 
 
-	}
+    @Override
+    public Role getRoleDetailsByRoleId(Role role) {
+
+        Role resultRole = roleRepository.getRoleDetailsByRoleId(role.getRoleid());
+
+        if (resultRole == null) {
+            throw new RoleNotFoundException("Role not found with Role ID: " + role.getRoleid());
+        }
+
+        return resultRole;
+    }
+
+
+    @Override
+    public List<Role> getAllRolesByRoleName(Role role) {
+
+        List<Role> resultRoleList = roleRepository.getAllRolesByRoleName(role.getRolename());
+
+        if (resultRoleList == null || resultRoleList.isEmpty()) {
+            throw new RoleNotFoundException("Empty List Of Role with this Role Name: " + role.getRolename());
+        }
+
+        return resultRoleList;
+
+
+    }
+
+    @Override
+    public Role saveRoledetails(Role role) throws IOException {
+
+        Role savedRole = roleRepository.save(role);
+
+        if (savedRole == null) {
+            throw new SaveFailedException("Failed to save role");
+        }
+
+        return savedRole;
+
+
+    }
 
 
 //

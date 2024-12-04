@@ -3,6 +3,7 @@ package com.tourism.travel_canvas.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,13 @@ public class RoleController {
 	public ResponseEntity<List<Role>> getAllRoles() {
 		List<Role> resultRoleList = roleService.getAllRoles();
 		return ResponseEntity.ok(resultRoleList);
+	}
+	@GetMapping("/getAllRoleDetails")
+	public ResponseEntity<List<AllDetailsBean>>  getAllRoleDetails()
+	{
+		List<AllDetailsBean> roleFinalList=roleService.getAllRoleDetails();
+		return ResponseEntity.ok(roleFinalList);
+
 	}
 
 	@PostMapping("/getRoleDetailsByRoleId")
