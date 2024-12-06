@@ -23,7 +23,10 @@ import com.tourism.travel_canvas.exception.RoleNotFoundException;
 import com.tourism.travel_canvas.exception.SaveFailedException;
 import com.tourism.travel_canvas.exception.UpdateFailedException;
 import com.tourism.travel_canvas.model.Role;
+import com.tourism.travel_canvas.model.User;
+import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 import com.tourism.travel_canvas.repository.RoleRepository;
+import com.tourism.travel_canvas.repository.UserRepository;
 import com.tourism.travel_canvas.service.RoleService;
 import com.tourism.travel_canvas.service.RoleServiceImpl;
 
@@ -31,6 +34,7 @@ public class RoleServiceTest {
 
 	private RoleRepository roleRepository;
 	private RoleService roleService;
+	private UserRepository userRepository;
 
 	private Role role;
 
@@ -40,6 +44,8 @@ public class RoleServiceTest {
 	void setup() {
 		roleRepository = Mockito.mock(RoleRepository.class);
 		roleService = new RoleServiceImpl(roleRepository);
+		
+		userRepository = Mockito.mock(UserRepository.class);
 
 		role = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
 
@@ -79,6 +85,31 @@ public class RoleServiceTest {
 
 		verify(roleRepository, times(1)).getAllRoles();
 	}
+	
+	@Test
+	void getAllRoleDetails_test() {
+		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 101, LocalDateTime.now(), 102, LocalDateTime.now()));
+
+		User userone = new User(101, "Moumita");
+		User usertwo = new User(102, "Sumit");
+
+		when(userRepository.geUserDetailsByuserid(101)).thenReturn(userone);
+		when(userRepository.geUserDetailsByuserid(102)).thenReturn(usertwo);
+
+		List<AllDetailsBean> result = roleService.getAllRoleDetails();
+
+		assertNotNull(result);
+
+		assertEquals(result.size(), roleList.size());
+
+		AllDetailsBean roleDetails = result.get(0);
+
+		assertEquals(1, roleDetails.getRoleid());
+		assertEquals("Admin", roleDetails.getRolename());
+		assertEquals("Moumita", roleDetails.getCreatename());
+		assertEquals("Sumit", roleDetails.getModname());
+
+	}
 
 	@Test
 	void getRoleDetailsByRoleId_test() {
@@ -109,8 +140,7 @@ public class RoleServiceTest {
 	}
 
 	@Test
-	void getAllRolesByRoleName_test()
-	{
+	void getAllRolesByRoleName_test() {
 		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
 				new Role(2, "Admin", 'Y', 1, LocalDateTime.now()));
 
@@ -120,16 +150,14 @@ public class RoleServiceTest {
 
 		assertNotNull(resultRoleList);
 
-		assertEquals(roleList.size(), resultRoleList.size(),"Returned role list should match the given role list ");
+		assertEquals(roleList.size(), resultRoleList.size(), "Returned role list should match the given role list ");
 	}
 
 	@Test
-	void getAllRolesByRoleName_Not_Found_test()
-	{
+	void getAllRolesByRoleName_Not_Found_test() {
 		when(roleRepository.getAllRolesByRoleName("Admin")).thenReturn(null);
 
-		RoleNotFoundException roleNotFoundException= assertThrows(RoleNotFoundException.class, ()->
-		{
+		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
 			roleService.getAllRolesByRoleName(role);
 
 		});

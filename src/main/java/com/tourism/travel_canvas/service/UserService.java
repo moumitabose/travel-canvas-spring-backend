@@ -10,6 +10,6 @@ public interface UserService {
 	
 	public List<AllDetailsBean> getAllUserDetails();
 
-	public User  saveUserDetails(User user) throws IOException;
+	public User saveUserDetails(User user) throws IOException;
 
 }

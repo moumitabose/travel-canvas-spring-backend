@@ -4,9 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.tourism.travel_canvas.model.User;
-import com.tourism.travel_canvas.outputbean.AllDetails;
+
 import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 import com.tourism.travel_canvas.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,116 +22,121 @@ import com.tourism.travel_canvas.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    public RoleServiceImpl(RoleRepository roleRepository) {
+	public RoleServiceImpl(RoleRepository roleRepository) {
 
-        this.roleRepository = roleRepository;
-    }
+		this.roleRepository = roleRepository;
+	}
+	
+	public RoleServiceImpl(RoleRepository roleRepository,UserRepository userRepository)
+	{
+		this.roleRepository = roleRepository;
+		this.userRepository=userRepository;
+	}
 
+	@Override
+	public List<Role> getAllRoles() {
 
-    @Override
-    public List<Role> getAllRoles() {
+		List<Role> resultRoleList = roleRepository.getAllRoles();
 
-        List<Role> resultRoleList = roleRepository.getAllRoles();
+		if (resultRoleList.size() == 0) {
+			throw new RoleNotFoundException("Empty List Of Role");
+		}
 
-        if (resultRoleList.size() == 0) {
-            throw new RoleNotFoundException("Empty List Of Role");
-        }
+		return resultRoleList;
+	}
 
-        return resultRoleList;
-    }
+	@Override
+	public List<AllDetailsBean> getAllRoleDetails() {
 
-    @Override
-    public List<AllDetailsBean> getAllRoleDetails() {
+		List<Role> resultRoleList = roleRepository.getAllRoles();
 
-        List<Role> resultRoleList = roleRepository.getAllRoles();
+		if (resultRoleList.size() == 0) {
+			throw new RoleNotFoundException("Empty List Of Role");
+		} else {
+			List<AllDetailsBean> roleFinalList = new ArrayList<AllDetailsBean>();
 
-        List<AllDetailsBean> roleFinalList = new ArrayList<AllDetailsBean>();
+			resultRoleList.forEach(role -> {
+				AllDetailsBean roleDetails = new AllDetailsBean();
 
-        resultRoleList.forEach(role -> {
-            AllDetailsBean roleDetails = new AllDetailsBean();
+				roleDetails.setRoleid(role.getRoleid());
+				roleDetails.setRolename(role.getRolename());
+				roleDetails.setActiveflag(role.getActiveflag());
+				roleDetails.setCreateby(role.getCreateby());
 
-            roleDetails.setRoleid(role.getRoleid());
-            roleDetails.setRolename(role.getRolename());
-            roleDetails.setActiveflag(role.getActiveflag());
-            roleDetails.setCreateby(role.getCreateby());
+				User user = userRepository.geUserDetailsByuserid(role.getCreateby());
 
-            System.out.println("CREATE BY  " + role.getCreateby());
+				if (user != null) {
+					roleDetails.setCreatename(user.getName());
+				}
 
-            User user = userRepository.geUserDetailsByuserid(role.getCreateby());
+				roleDetails.setCreatename(user.getName());
 
-            roleDetails.setCreatename(user.getName());
+				roleDetails.setCreatedt(role.getCreatedt());
 
-            roleDetails.setCreatedt(role.getCreatedt());
+				roleDetails.setModby(role.getModby());
 
-            roleDetails.setModby(role.getModby());
+				if (role.getModby() != null) {
+					User usermodby = userRepository.geUserDetailsByuserid(role.getModby());
+					if (usermodby != null) {
 
-            System.out.println("MOD BY  " + role.getModby());
+						roleDetails.setModname(usermodby.getName());
+					}
+				}
 
-            if (role.getModby() != null) {
-                User usermodby = userRepository.geUserDetailsByuserid(role.getModby());
+				roleDetails.setModdt(role.getModdt());
 
-                roleDetails.setModname(usermodby.getName());
-            }
+				roleFinalList.add(roleDetails);
 
+			});
 
-            roleDetails.setModdt(role.getModdt());
+			return roleFinalList;
+		}
 
-            roleFinalList.add(roleDetails);
+	}
 
-        });
+	@Override
+	public Role getRoleDetailsByRoleId(Role role) {
 
-        return roleFinalList;
+		Role resultRole = roleRepository.getRoleDetailsByRoleId(role.getRoleid());
 
-    }
+		if (resultRole == null) {
+			throw new RoleNotFoundException("Role not found with Role ID: " + role.getRoleid());
+		}
 
+		return resultRole;
+	}
 
-    @Override
-    public Role getRoleDetailsByRoleId(Role role) {
+	@Override
+	public List<Role> getAllRolesByRoleName(Role role) {
 
-        Role resultRole = roleRepository.getRoleDetailsByRoleId(role.getRoleid());
+		List<Role> resultRoleList = roleRepository.getAllRolesByRoleName(role.getRolename());
 
-        if (resultRole == null) {
-            throw new RoleNotFoundException("Role not found with Role ID: " + role.getRoleid());
-        }
+		if (resultRoleList == null || resultRoleList.isEmpty()) {
+			throw new RoleNotFoundException("Empty List Of Role with this Role Name: " + role.getRolename());
+		}
 
-        return resultRole;
-    }
+		return resultRoleList;
 
+	}
 
-    @Override
-    public List<Role> getAllRolesByRoleName(Role role) {
+	@Override
+	public Role saveRoledetails(Role role) throws IOException {
 
-        List<Role> resultRoleList = roleRepository.getAllRolesByRoleName(role.getRolename());
+		Role savedRole = roleRepository.save(role);
 
-        if (resultRoleList == null || resultRoleList.isEmpty()) {
-            throw new RoleNotFoundException("Empty List Of Role with this Role Name: " + role.getRolename());
-        }
+		if (savedRole == null) {
+			throw new SaveFailedException("Failed to save role");
+		}
 
-        return resultRoleList;
+		return savedRole;
 
-
-    }
-
-    @Override
-    public Role saveRoledetails(Role role) throws IOException {
-
-        Role savedRole = roleRepository.save(role);
-
-        if (savedRole == null) {
-            throw new SaveFailedException("Failed to save role");
-        }
-
-        return savedRole;
-
-
-    }
-
+	}
 
 //
 //	@Override
@@ -165,6 +169,5 @@ public class RoleServiceImpl implements RoleService {
 //		return roleToBeDelete;
 //
 //	}
-
 
 }

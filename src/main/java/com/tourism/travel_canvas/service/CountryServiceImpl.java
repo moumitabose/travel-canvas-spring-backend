@@ -1,6 +1,7 @@
 package com.tourism.travel_canvas.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,8 +10,15 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tourism.travel_canvas.exception.CountryNotFoundException;
+import com.tourism.travel_canvas.exception.SaveFailedException;
+import com.tourism.travel_canvas.exception.UpdateFailedException;
 import com.tourism.travel_canvas.model.Country;
+import com.tourism.travel_canvas.model.User;
+import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 import com.tourism.travel_canvas.repository.CountryRepository;
+import com.tourism.travel_canvas.repository.RoleRepository;
+import com.tourism.travel_canvas.repository.UserRepository;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -18,62 +26,108 @@ public class CountryServiceImpl implements CountryService {
 	@Autowired
 	private CountryRepository countryRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	public CountryServiceImpl(CountryRepository countryRepository) {
 		this.countryRepository = countryRepository;
 	}
 
+	public CountryServiceImpl(CountryRepository countryRepository, UserRepository userRepository) {
+		this.countryRepository = countryRepository;
+		this.userRepository = userRepository;
+	}
+
 	@Override
 	public List<Country> getAllCountries() {
-		try {
-			return List.copyOf(countryRepository.getAllCountries());
-		} catch (Exception e) {
-			// Log the exception and return an empty list
-			System.err.println("Failed to fetch countries: " + e.getMessage());
-			return List.of(); // Returns an immutable empty list
+
+		List<Country> countryList = countryRepository.getAllCountries();
+		if (countryList == null || countryList.isEmpty()) {
+			throw new CountryNotFoundException("Empty List of Country");
+		}
+		return countryList;
+
+	}
+
+	@Override
+	public List<AllDetailsBean> getAllCountriesDetails() {
+
+		List<Country> countryList = countryRepository.getAllCountriesDetails();
+
+		if (countryList == null || countryList.isEmpty()) {
+			throw new CountryNotFoundException("Empty List of Country");
+		} else {
+			List<AllDetailsBean> countryFinalList = new ArrayList<AllDetailsBean>();
+
+			countryList.forEach(country -> {
+				AllDetailsBean countryDetails = new AllDetailsBean();
+
+				countryDetails.setCountryid(country.getCountryid());
+				countryDetails.setCountryname(country.getCountryname());
+				countryDetails.setActiveflag(country.getActiveflag());
+				countryDetails.setCreateby(country.getCreateby());
+
+				User user = userRepository.geUserDetailsByuserid(country.getCreateby());
+				if (user != null) {
+					countryDetails.setCreatename(user.getName());
+				}
+
+				countryDetails.setCreatedt(country.getCreatedt());
+
+				countryDetails.setModby(country.getModby());
+
+				if (country.getModby() != null) {
+					User usermodby = userRepository.geUserDetailsByuserid(country.getCreateby());
+					if (usermodby != null) {
+
+						countryDetails.setModname(usermodby.getName());
+					}
+				}
+
+				countryDetails.setModdt(country.getModdt());
+
+				countryFinalList.add(countryDetails);
+
+			});
+
+			return countryFinalList;
 		}
 	}
 
 	@Override
 	public Country saveCountryDetails(Country country) {
-		try {
-			return countryRepository.save(country);
-		} catch (Exception e) {
-			System.err.println("Failed to save country details: " + e.getMessage());
-			// Optionally, you can rethrow the exception or handle it differently
-			throw new RuntimeException("Save operation failed", e);
+
+		Country savedCountry = countryRepository.save(country);
+
+		if (savedCountry == null) {
+			throw new SaveFailedException("Failed to save country");
 		}
+		return savedCountry;
+
 	}
 
-	
-	
 	@Override
-	public Country updateCountryDetails(Country country) {
-	    try {
-	        if (countryRepository.existsByCountrynameIgnoreCase(country.getCountryname())) {
-	            throw new IllegalArgumentException("Country name already exists. Update operation is skipped.");
-	        }
+	public void updateCountryDetails(Country country) {
 
-	        Optional<Country> optionalCountry = countryRepository.findById(country.getCountryid());
+		boolean duplicateCountryNameFlag = countryRepository.getAllCountries().stream()
+				.anyMatch(r -> r.getCountryname().equalsIgnoreCase(country.getCountryname()));
 
-	        if (optionalCountry.isPresent()) {
-	            Country countryobj = optionalCountry.get();
+		if (!duplicateCountryNameFlag) {
+			Country countryId = countryRepository.getAllCountryByCountryId(country.getCountryid());
+			if (countryId.getCountryid() != 0) {
+				countryRepository.updateCountryDetails
+				(country.getCountryname(), country.getModdt(), country.getModby(),
+						country.getCountryid());
+			} else {
+				throw new CountryNotFoundException("Country Not found with this country id");
+			}
 
-	            countryobj.setCountryname(country.getCountryname());
-	            countryobj.setActiveflag(country.getActiveflag());
-	            countryobj.setModby(country.getModby());
-	            countryobj.setModdt(country.getModdt());
+		}
 
-	            return countryRepository.save(countryobj);
-	        } else {
-	            throw new EntityNotFoundException("Country not found with id " + country.getCountryid());
-	        }
-	    } catch (IllegalArgumentException | EntityNotFoundException e) {
-	        throw e; // Rethrow to propagate specific exceptions.
-	    } catch (Exception e) {
-	        // Log the exception and throw a custom runtime exception.
-	        throw new RuntimeException("An error occurred while updating country details: " + e.getMessage(), e);
-	    }
+		else {
+			throw new UpdateFailedException("Failed to update country");
+		}
+
 	}
-
 
 }

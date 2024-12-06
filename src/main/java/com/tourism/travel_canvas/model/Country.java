@@ -2,7 +2,6 @@ package com.tourism.travel_canvas.model;
 
 import java.time.LocalDateTime;
 
-import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -18,6 +18,12 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> handleRoleNotFoundException(RoleNotFoundException e) {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
 	}
+	
+	@ExceptionHandler(CountryNotFoundException.class)
+	public ResponseEntity<String> CountryNotFoundException(CountryNotFoundException e) {
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+	}
+	
 
 	@ExceptionHandler(ImageNotFoundException.class)
 	public ResponseEntity<String> handleImageNotFoundException(ImageNotFoundException e) {

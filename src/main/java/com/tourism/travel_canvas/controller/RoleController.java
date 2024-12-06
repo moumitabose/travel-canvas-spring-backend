@@ -28,10 +28,10 @@ public class RoleController {
 		List<Role> resultRoleList = roleService.getAllRoles();
 		return ResponseEntity.ok(resultRoleList);
 	}
+
 	@GetMapping("/getAllRoleDetails")
-	public ResponseEntity<List<AllDetailsBean>>  getAllRoleDetails()
-	{
-		List<AllDetailsBean> roleFinalList=roleService.getAllRoleDetails();
+	public ResponseEntity<List<AllDetailsBean>> getAllRoleDetails() {
+		List<AllDetailsBean> roleFinalList = roleService.getAllRoleDetails();
 		return ResponseEntity.ok(roleFinalList);
 
 	}
@@ -41,20 +41,18 @@ public class RoleController {
 		if (role == null || role.getRoleid() == null) {
 			return ResponseEntity.badRequest().build(); // 400 Bad Request if roleId is missing
 		}
-		Role resultRole=roleService.getRoleDetailsByRoleId(role);
+		Role resultRole = roleService.getRoleDetailsByRoleId(role);
 		return ResponseEntity.ok(resultRole); // 200 OK with role details
 	}
-
 
 	@PostMapping("/getAllRolesByRoleName")
 	public ResponseEntity<List<Role>> getAllRolesByRoleName(@RequestBody Role role) {
 		if (role == null || role.getRoleid() == null) {
 			return ResponseEntity.badRequest().build(); // 400 Bad Request if roleId is missing
 		}
-		List<Role> resultRoleList=roleService.getAllRolesByRoleName(role);
+		List<Role> resultRoleList = roleService.getAllRolesByRoleName(role);
 		return ResponseEntity.ok(resultRoleList); // 200 OK with role details
 	}
-
 
 	@PostMapping("/saveRoledetails")
 	public ResponseEntity<Role> saveRoledetails(@RequestBody Role role) throws IOException {
@@ -76,7 +74,5 @@ public class RoleController {
 //		Role deleteRoledetails = roleService.deleteRoledetails(role);
 //		return new ResponseEntity<>(deleteRoledetails, HttpStatus.CREATED);
 //	}
-
-
 
 }

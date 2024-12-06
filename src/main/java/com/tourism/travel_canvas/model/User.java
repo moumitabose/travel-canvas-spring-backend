@@ -129,6 +129,47 @@ public class User {
 	public void setActiveflag(Character activeflag) {
 		this.activeflag = activeflag;
 	}
+
+	public User(Integer userid, String name, Role role, Integer countryid, String email, String password,
+			Character activeflag, Integer createby, LocalDateTime createdt, Integer modby, LocalDateTime moddt) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.role = role;
+		this.countryid = countryid;
+		this.email = email;
+		this.password = password;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+		this.modby = modby;
+		this.moddt = moddt;
+	}
+
+	public User(Integer userid, String name, Role role, Integer countryid, String email, String password,
+			Character activeflag, Integer createby, LocalDateTime createdt) {
+		super();
+		this.userid = userid;
+		this.name = name;
+		this.role = role;
+		this.countryid = countryid;
+		this.email = email;
+		this.password = password;
+		this.activeflag = activeflag;
+		this.createby = createby;
+		this.createdt = createdt;
+	}
+
+	public User(Integer userid, String name) {
+		super();
+		this.userid = userid;
+		this.name = name;
+	}
+
+	public User() {
+		super();
+		
+	}
 	
 
 }
