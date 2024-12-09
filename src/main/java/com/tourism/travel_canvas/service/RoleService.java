@@ -19,7 +19,7 @@ public interface RoleService {
 
 	public Role saveRoledetails(Role role) throws IOException;
 
-//	public Role updateRoledetails(Role role) throws IOException;
+	public void updateRoledetails(Role role) throws IOException;
 
 	//public Role deleteRoledetails(Role role) throws IOException;
 

@@ -33,10 +33,10 @@ public class CountryServiceImpl implements CountryService {
 		this.countryRepository = countryRepository;
 	}
 
-	public CountryServiceImpl(CountryRepository countryRepository, UserRepository userRepository) {
-		this.countryRepository = countryRepository;
-		this.userRepository = userRepository;
-	}
+//	public CountryServiceImpl(CountryRepository countryRepository, UserRepository userRepository) {
+//		this.countryRepository = countryRepository;
+//		this.userRepository = userRepository;
+//	}
 
 	@Override
 	public List<Country> getAllCountries() {

@@ -61,12 +61,13 @@ public class RoleController {
 		return new ResponseEntity<>(saveRoleDetails, HttpStatus.CREATED);
 	}
 
-//	@PostMapping("/updateRoledetails")
-//	public ResponseEntity<Role> updateRoledetails(@RequestBody Role role) throws IOException {
-//
-//		Role updateRoleDetails = roleService.updateRoledetails(role);
-//		return new ResponseEntity<>(updateRoleDetails, HttpStatus.CREATED);
-//	}
+	@PostMapping("/updateRoledetails")
+	public ResponseEntity<String> updateRoledetails(@RequestBody Role role) throws IOException {
+
+		roleService.updateRoledetails(role);
+		return new ResponseEntity<>("Role details updated successfully", HttpStatus.CREATED);
+
+	}
 //
 //	@PostMapping("/deleteRoledetails")
 //	public ResponseEntity<Role> deleteRoledetails(@RequestBody Role role) throws IOException {

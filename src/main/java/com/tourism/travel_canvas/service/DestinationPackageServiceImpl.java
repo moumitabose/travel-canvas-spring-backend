@@ -1,7 +1,9 @@
 package com.tourism.travel_canvas.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.tourism.travel_canvas.exception.SaveFailedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +31,19 @@ public class DestinationPackageServiceImpl implements DestinationPackageService 
 		
 		return resultList;
 	}
-	
-	
-	
-	
+
+	@Override
+	public DestinationPackage saveDestinationPackageDetails
+			(DestinationPackage destinationPackage) throws IOException {
+
+		DestinationPackage savePackage= destinationPackageRepository.save(destinationPackage);
+
+		if(savePackage==null)
+		{
+			throw new SaveFailedException("Failed to save package");
+		}
+		return savePackage;
+	}
+
 
 }

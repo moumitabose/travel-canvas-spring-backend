@@ -28,10 +28,10 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public RoleServiceImpl(RoleRepository roleRepository) {
-
-		this.roleRepository = roleRepository;
-	}
+//	public RoleServiceImpl(RoleRepository roleRepository) {
+//
+//		this.roleRepository = roleRepository;
+//	}
 	
 	public RoleServiceImpl(RoleRepository roleRepository,UserRepository userRepository)
 	{
@@ -139,23 +139,21 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 //
-//	@Override
-//	public Role updateRoledetails(Role role) throws IOException {
-//
-//		boolean duplicateRoleNameFlag = roleRepository.getAllRoles().stream()
-//				.anyMatch(r -> r.getRolename().equalsIgnoreCase(role.getRolename()));
-//
-//		if (!duplicateRoleNameFlag) {
-//
-//			Role existingRole = roleRepository.updateRoledetails(role.getRolename(), role.getModdt(), role.getModby(),
-//					role.getRoleid());
-//
-//			return existingRole;
-//
-//		} else {
-//			throw new UpdateFailedException("Role name already exists, update not possible");
-//		}
-//	}
+	@Override
+	public void updateRoledetails(Role role) throws IOException {
+
+		boolean duplicateRoleNameFlag = roleRepository.getAllRoles().stream()
+				.anyMatch(r -> r.getRolename().equalsIgnoreCase(role.getRolename()));
+
+		if (!duplicateRoleNameFlag) {
+
+			 roleRepository.updateRoledetails(role.getRolename(), role.getModdt(), role.getModby(),
+					role.getRoleid());
+
+		} else {
+			throw new UpdateFailedException("Role name already exists, update not possible");
+		}
+	}
 //
 //	@Override
 //	public Role deleteRoledetails(Role role) throws IOException {

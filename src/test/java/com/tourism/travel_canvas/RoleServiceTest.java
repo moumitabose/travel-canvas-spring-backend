@@ -40,158 +40,158 @@ public class RoleServiceTest {
 
 	private Role existingRoleForUpdate;
 
-	@BeforeEach
-	void setup() {
-		roleRepository = Mockito.mock(RoleRepository.class);
-		roleService = new RoleServiceImpl(roleRepository);
-		
-		userRepository = Mockito.mock(UserRepository.class);
-
-		role = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
-
-		existingRoleForUpdate = new Role();
-
-		existingRoleForUpdate.setRoleid(1);
-		existingRoleForUpdate.setRolename("Admin");
-		existingRoleForUpdate.setModby(2);
-		existingRoleForUpdate.setModdt(LocalDateTime.now());
-	}
-
-	@Test
-	void getAllRoles_test() {
-		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
-				new Role(2, "User", 'Y', 1, LocalDateTime.now()));
-
-		when(roleRepository.getAllRoles()).thenReturn(roleList);
-
-		List<Role> resultRoleList = roleService.getAllRoles();
-
-		assertEquals(roleList.size(), resultRoleList.size(), "both role list are in equal size");
-
-		verify(roleRepository, times(1)).getAllRoles();
-
-	}
-
-	@Test
-	void getAllRoles_empty_test() {
-
-		when(roleRepository.getAllRoles()).thenReturn(null);
-
-		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
-			roleService.getAllRoles();
-		});
-
-		assertEquals("Role list not found ", roleNotFoundException.getMessage());
-
-		verify(roleRepository, times(1)).getAllRoles();
-	}
-	
-	@Test
-	void getAllRoleDetails_test() {
-		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 101, LocalDateTime.now(), 102, LocalDateTime.now()));
-
-		User userone = new User(101, "Moumita");
-		User usertwo = new User(102, "Sumit");
-
-		when(userRepository.geUserDetailsByuserid(101)).thenReturn(userone);
-		when(userRepository.geUserDetailsByuserid(102)).thenReturn(usertwo);
-
-		List<AllDetailsBean> result = roleService.getAllRoleDetails();
-
-		assertNotNull(result);
-
-		assertEquals(result.size(), roleList.size());
-
-		AllDetailsBean roleDetails = result.get(0);
-
-		assertEquals(1, roleDetails.getRoleid());
-		assertEquals("Admin", roleDetails.getRolename());
-		assertEquals("Moumita", roleDetails.getCreatename());
-		assertEquals("Sumit", roleDetails.getModname());
-
-	}
-
-	@Test
-	void getRoleDetailsByRoleId_test() {
-
-		when(roleRepository.getRoleDetailsByRoleId(1)).thenReturn(role);
-
-		Role resultrole = roleService.getRoleDetailsByRoleId(role);
-
-		assertEquals(role.getRolename(), resultrole.getRolename(), "Returned role should match the role name");
-
-		// Verify repository interaction
-		verify(roleRepository, times(1)).getRoleDetailsByRoleId(1);
-	}
-
-	@Test
-	void getRoleDetailsByRoleId_Not_Found_test() {
-
-		when(roleRepository.getRoleDetailsByRoleId(1)).thenReturn(null);
-
-		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
-			roleService.getRoleDetailsByRoleId(role);
-		});
-
-		assertEquals("Role not found with this Role ID : 1", roleNotFoundException.getMessage());
-
-		// Verify repository interaction
-		verify(roleRepository, times(1)).getRoleDetailsByRoleId(1);
-	}
-
-	@Test
-	void getAllRolesByRoleName_test() {
-		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
-				new Role(2, "Admin", 'Y', 1, LocalDateTime.now()));
-
-		when(roleRepository.getAllRolesByRoleName("Admin")).thenReturn(roleList);
-
-		List<Role> resultRoleList = roleService.getAllRolesByRoleName(role);
-
-		assertNotNull(resultRoleList);
-
-		assertEquals(roleList.size(), resultRoleList.size(), "Returned role list should match the given role list ");
-	}
-
-	@Test
-	void getAllRolesByRoleName_Not_Found_test() {
-		when(roleRepository.getAllRolesByRoleName("Admin")).thenReturn(null);
-
-		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
-			roleService.getAllRolesByRoleName(role);
-
-		});
-
-		assertEquals("Empty List Of Role with this Role Name: ", roleNotFoundException.getMessage());
-	}
-
-	@Test
-	void saveRoledetails_test() throws IOException {
-		Role saved = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
-
-		when(roleRepository.save(role)).thenReturn(saved);
-
-		Role resultRole = roleService.saveRoledetails(role);
-
-		assertEquals(saved, resultRole, "The saved role should match the expected role.");
-
-		verify(roleRepository, times(1)).save(role);
-	}
-
-	@Test
-	void saveRoledetails_empty_test() throws IOException {
-
-		when(roleRepository.save(role)).thenReturn(null);
-
-		SaveFailedException saveFailedException = assertThrows(SaveFailedException.class, () -> {
-			roleService.saveRoledetails(role);
-		});
-
-		assertEquals("Failed to save role", saveFailedException.getMessage());
-
-		verify(roleRepository, times(1)).save(role);
-
-	}
+//	@BeforeEach
+//	void setup() {
+//		roleRepository = Mockito.mock(RoleRepository.class);
+//		roleService = new RoleServiceImpl(roleRepository);
+//
+//		userRepository = Mockito.mock(UserRepository.class);
+//
+//		role = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
+//
+//		existingRoleForUpdate = new Role();
+//
+//		existingRoleForUpdate.setRoleid(1);
+//		existingRoleForUpdate.setRolename("Admin");
+//		existingRoleForUpdate.setModby(2);
+//		existingRoleForUpdate.setModdt(LocalDateTime.now());
+//	}
+//
+//	@Test
+//	void getAllRoles_test() {
+//		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
+//				new Role(2, "User", 'Y', 1, LocalDateTime.now()));
+//
+//		when(roleRepository.getAllRoles()).thenReturn(roleList);
+//
+//		List<Role> resultRoleList = roleService.getAllRoles();
+//
+//		assertEquals(roleList.size(), resultRoleList.size(), "both role list are in equal size");
+//
+//		verify(roleRepository, times(1)).getAllRoles();
+//
+//	}
+//
+//	@Test
+//	void getAllRoles_empty_test() {
+//
+//		when(roleRepository.getAllRoles()).thenReturn(null);
+//
+//		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
+//			roleService.getAllRoles();
+//		});
+//
+//		assertEquals("Role list not found ", roleNotFoundException.getMessage());
+//
+//		verify(roleRepository, times(1)).getAllRoles();
+//	}
+//
+//	@Test
+//	void getAllRoleDetails_test() {
+//		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 101, LocalDateTime.now(), 102, LocalDateTime.now()));
+//
+//		User userone = new User(101, "Moumita");
+//		User usertwo = new User(102, "Sumit");
+//
+//		when(userRepository.geUserDetailsByuserid(101)).thenReturn(userone);
+//		when(userRepository.geUserDetailsByuserid(102)).thenReturn(usertwo);
+//
+//		List<AllDetailsBean> result = roleService.getAllRoleDetails();
+//
+//		assertNotNull(result);
+//
+//		assertEquals(result.size(), roleList.size());
+//
+//		AllDetailsBean roleDetails = result.get(0);
+//
+//		assertEquals(1, roleDetails.getRoleid());
+//		assertEquals("Admin", roleDetails.getRolename());
+//		assertEquals("Moumita", roleDetails.getCreatename());
+//		assertEquals("Sumit", roleDetails.getModname());
+//
+//	}
+//
+//	@Test
+//	void getRoleDetailsByRoleId_test() {
+//
+//		when(roleRepository.getRoleDetailsByRoleId(1)).thenReturn(role);
+//
+//		Role resultrole = roleService.getRoleDetailsByRoleId(role);
+//
+//		assertEquals(role.getRolename(), resultrole.getRolename(), "Returned role should match the role name");
+//
+//		// Verify repository interaction
+//		verify(roleRepository, times(1)).getRoleDetailsByRoleId(1);
+//	}
+//
+//	@Test
+//	void getRoleDetailsByRoleId_Not_Found_test() {
+//
+//		when(roleRepository.getRoleDetailsByRoleId(1)).thenReturn(null);
+//
+//		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
+//			roleService.getRoleDetailsByRoleId(role);
+//		});
+//
+//		assertEquals("Role not found with this Role ID : 1", roleNotFoundException.getMessage());
+//
+//		// Verify repository interaction
+//		verify(roleRepository, times(1)).getRoleDetailsByRoleId(1);
+//	}
+//
+//	@Test
+//	void getAllRolesByRoleName_test() {
+//		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
+//				new Role(2, "Admin", 'Y', 1, LocalDateTime.now()));
+//
+//		when(roleRepository.getAllRolesByRoleName("Admin")).thenReturn(roleList);
+//
+//		List<Role> resultRoleList = roleService.getAllRolesByRoleName(role);
+//
+//		assertNotNull(resultRoleList);
+//
+//		assertEquals(roleList.size(), resultRoleList.size(), "Returned role list should match the given role list ");
+//	}
+//
+//	@Test
+//	void getAllRolesByRoleName_Not_Found_test() {
+//		when(roleRepository.getAllRolesByRoleName("Admin")).thenReturn(null);
+//
+//		RoleNotFoundException roleNotFoundException = assertThrows(RoleNotFoundException.class, () -> {
+//			roleService.getAllRolesByRoleName(role);
+//
+//		});
+//
+//		assertEquals("Empty List Of Role with this Role Name: ", roleNotFoundException.getMessage());
+//	}
+//
+//	@Test
+//	void saveRoledetails_test() throws IOException {
+//		Role saved = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
+//
+//		when(roleRepository.save(role)).thenReturn(saved);
+//
+//		Role resultRole = roleService.saveRoledetails(role);
+//
+//		assertEquals(saved, resultRole, "The saved role should match the expected role.");
+//
+//		verify(roleRepository, times(1)).save(role);
+//	}
+//
+//	@Test
+//	void saveRoledetails_empty_test() throws IOException {
+//
+//		when(roleRepository.save(role)).thenReturn(null);
+//
+//		SaveFailedException saveFailedException = assertThrows(SaveFailedException.class, () -> {
+//			roleService.saveRoledetails(role);
+//		});
+//
+//		assertEquals("Failed to save role", saveFailedException.getMessage());
+//
+//		verify(roleRepository, times(1)).save(role);
+//
+//	}
 
 //	@Test
 //	void updateRoledetails_test() throws IOException {

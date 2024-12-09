@@ -28,8 +28,8 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
 	public List<Role> getAllRolesByRoleName(String rolename);
 
 	@Modifying(clearAutomatically = true, flushAutomatically = true)
-	@Query(value = "UPDATE tourism.role r SET r.rolename=:rolename, r.activeflag='N',r.moddt=:moddt,r.modby=:modby "
-			+ " WHERE r.roleid=:roleid", nativeQuery = true)
+	@Query(value = "UPDATE tourism.role SET rolename=:rolename, activeflag='N',moddt=:moddt,modby=:modby "
+			+ " WHERE roleid=:roleid", nativeQuery = true)
 	@Transactional
 	public void updateRoledetails(String rolename, LocalDateTime moddt, Integer modby, Integer roleid);
 
