@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tourism.travel_canvas.model.EmailRequest;
 import com.tourism.travel_canvas.service.EmailRequestService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @CrossOrigin
 public class EmailRequestController {
@@ -19,9 +22,11 @@ public class EmailRequestController {
 	private EmailRequestService emailRequestService;
 
 	@PostMapping("/sendEmail")
-	public String sendEmail(@RequestBody EmailRequest emailRequest) {
+	public ResponseEntity<Map<String, String>> sendEmail(@RequestBody EmailRequest emailRequest) {
 		emailRequestService.sendEmail(emailRequest);
-		return "Email sent successfully!";
+		Map<String, String> response = new HashMap<>();
+		response.put("message", "Email sent successfully!");
+		return ResponseEntity.ok(response);
 	}
 
 	@PostMapping("/saveEmailDetails")

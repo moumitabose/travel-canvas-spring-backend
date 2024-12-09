@@ -32,44 +32,44 @@ import com.tourism.travel_canvas.service.RoleServiceImpl;
 
 public class RoleServiceTest {
 
-//	private RoleRepository roleRepository;
-//	private RoleService roleService;
-//	private UserRepository userRepository;
+	private RoleRepository roleRepository;
+	private RoleService roleService;
+	private UserRepository userRepository;
+
+	private Role role;
+
+	private Role existingRoleForUpdate;
 //
-//	private Role role;
-//
-//	private Role existingRoleForUpdate;
-//
-//	  @BeforeEach
-//	    void setup() {
-//	        roleRepository = Mockito.mock(RoleRepository.class);
-//	        userRepository = Mockito.mock(UserRepository.class);
-//	        roleService = new RoleServiceImpl(roleRepository, userRepository);
-//	        
-//	        role = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
-//
-//	        existingRoleForUpdate = new Role();
-//	        existingRoleForUpdate.setRoleid(1);
-//	        existingRoleForUpdate.setRolename("Admin");
-//	        existingRoleForUpdate.setModby(2);
-//	        existingRoleForUpdate.setModdt(LocalDateTime.now());
-//	    }
-//
-//	@Test
-//	void getAllRoles_test() {
-//		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
-//				new Role(2, "User", 'Y', 1, LocalDateTime.now()));
-//
-//		when(roleRepository.getAllRoles()).thenReturn(roleList);
-//
-//		List<Role> resultRoleList = roleService.getAllRoles();
-//
-//		assertEquals(roleList.size(), resultRoleList.size(), "both role list are in equal size");
-//
-//		verify(roleRepository, times(1)).getAllRoles();
-//
-//	}
-//
+	  @BeforeEach
+	    void setup() {
+	        roleRepository = Mockito.mock(RoleRepository.class);
+	        userRepository = Mockito.mock(UserRepository.class);
+	        roleService = new RoleServiceImpl(roleRepository, userRepository);
+
+	        role = new Role(1, "Admin", 'Y', 1, LocalDateTime.now());
+
+	        existingRoleForUpdate = new Role();
+	        existingRoleForUpdate.setRoleid(1);
+	        existingRoleForUpdate.setRolename("Admin");
+	        existingRoleForUpdate.setModby(2);
+	        existingRoleForUpdate.setModdt(LocalDateTime.now());
+	    }
+
+	@Test
+	void getAllRoles_test() {
+		List<Role> roleList = List.of(new Role(1, "Admin", 'Y', 1, LocalDateTime.now()),
+				new Role(2, "User", 'Y', 1, LocalDateTime.now()));
+
+		when(roleRepository.getAllRoles()).thenReturn(roleList);
+
+		List<Role> resultRoleList = roleService.getAllRoles();
+
+		assertEquals(roleList.size(), resultRoleList.size(), "both role list are in equal size");
+
+		verify(roleRepository, times(1)).getAllRoles();
+
+	}
+
 //	@Test
 //	void getAllRoles_empty_test() {
 //
@@ -109,18 +109,18 @@ public class RoleServiceTest {
 //
 //	}
 //
-//	@Test
-//	void getRoleDetailsByRoleId_test() {
-//
-//		when(roleRepository.getRoleDetailsByRoleId(1)).thenReturn(role);
-//
-//		Role resultrole = roleService.getRoleDetailsByRoleId(role);
-//
-//		assertEquals(role.getRolename(), resultrole.getRolename(), "Returned role should match the role name");
-//
-//		// Verify repository interaction
-//		verify(roleRepository, times(1)).getRoleDetailsByRoleId(1);
-//	}
+	@Test
+	void getRoleDetailsByRoleId_test() {
+
+		when(roleRepository.getRoleDetailsByRoleId(1)).thenReturn(role);
+
+		Role resultrole = roleService.getRoleDetailsByRoleId(role);
+
+		assertEquals(role.getRolename(), resultrole.getRolename(), "Returned role should match the role name");
+
+		// Verify repository interaction
+		verify(roleRepository, times(1)).getRoleDetailsByRoleId(1);
+	}
 //
 //	@Test
 //	void getRoleDetailsByRoleId_Not_Found_test() {

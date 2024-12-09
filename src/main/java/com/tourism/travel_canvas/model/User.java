@@ -29,7 +29,7 @@ public class User {
 
 	private Integer countryid;
 	private String email;
-	private Integer phone;
+	private String phone;
 	private String password;
 	private Character activeflag;
 
@@ -90,11 +90,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Integer getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 

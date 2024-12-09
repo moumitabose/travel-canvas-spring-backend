@@ -161,6 +161,11 @@ public class RoleServiceImpl implements RoleService {
 
 	}
 
+	@Override
+	public void updateRoledetails(Role role) throws IOException {
+
+	}
+
 //
 //	@Override
 //	public Role updateRoledetails(Role role) throws IOException {
