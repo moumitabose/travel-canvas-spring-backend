@@ -22,22 +22,45 @@ import com.tourism.travel_canvas.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	@Autowired
-	private RoleRepository roleRepository;
+//	@Autowired
+//	private RoleRepository roleRepository;
+//
+//	@Autowired
+//	private UserRepository userRepository;
 
-	@Autowired
+//	private final RoleRepository roleRepository;
+//    private final UserRepository userRepository;
+
+	// Constructor with both dependencies
+//    @Autowired
+//    public RoleServiceImpl(RoleRepository roleRepository, UserRepository userRepository) {
+//        this.roleRepository = roleRepository;
+//        this.userRepository = userRepository;
+//    }
+
+	private RoleRepository roleRepository;
 	private UserRepository userRepository;
 
-	public RoleServiceImpl(RoleRepository roleRepository) {
+	@Autowired
+	public RoleServiceImpl(RoleRepository roleRepository, UserRepository userRepository) {
+		this.roleRepository = roleRepository;
+		this.userRepository = userRepository;
+	}
 
-		this.roleRepository = roleRepository;
+	public RoleServiceImpl() {
+		super();
 	}
-	
-	public RoleServiceImpl(RoleRepository roleRepository,UserRepository userRepository)
-	{
-		this.roleRepository = roleRepository;
-		this.userRepository=userRepository;
-	}
+
+//	public RoleServiceImpl(RoleRepository roleRepository) {
+//
+//		this.roleRepository = roleRepository;
+//	}
+//	
+//	public RoleServiceImpl(RoleRepository roleRepository,UserRepository userRepository)
+//	{
+//		this.roleRepository = roleRepository;
+//		this.userRepository=userRepository;
+//	}
 
 	@Override
 	public List<Role> getAllRoles() {

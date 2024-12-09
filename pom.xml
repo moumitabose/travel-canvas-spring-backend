@@ -51,11 +51,11 @@
 			<scope>test</scope>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-properties-migrator</artifactId>-->
-<!--			<scope>runtime</scope>-->
-<!--		</dependency>-->
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework.boot</groupId> -->
+		<!-- <artifactId>spring-boot-properties-migrator</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -85,7 +85,12 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			</dependency>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 
 
 	</dependencies>

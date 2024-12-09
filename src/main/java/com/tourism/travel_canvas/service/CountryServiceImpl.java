@@ -3,7 +3,6 @@ package com.tourism.travel_canvas.service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -23,16 +22,14 @@ import com.tourism.travel_canvas.repository.UserRepository;
 @Service
 public class CountryServiceImpl implements CountryService {
 
-	@Autowired
 	private CountryRepository countryRepository;
-
-	@Autowired
 	private UserRepository userRepository;
 
-	public CountryServiceImpl(CountryRepository countryRepository) {
-		this.countryRepository = countryRepository;
+	public CountryServiceImpl() {
+
 	}
 
+	@Autowired
 	public CountryServiceImpl(CountryRepository countryRepository, UserRepository userRepository) {
 		this.countryRepository = countryRepository;
 		this.userRepository = userRepository;
@@ -51,47 +48,42 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public List<AllDetailsBean> getAllCountriesDetails() {
+	    List<Country> countryList = countryRepository.getAllCountriesDetails();
 
-		List<Country> countryList = countryRepository.getAllCountriesDetails();
+	    if (countryList == null || countryList.isEmpty()) {
+	        throw new CountryNotFoundException("Empty List of Country");
+	    } else {
+	        List<AllDetailsBean> countryFinalList = new ArrayList<>();
 
-		if (countryList == null || countryList.isEmpty()) {
-			throw new CountryNotFoundException("Empty List of Country");
-		} else {
-			List<AllDetailsBean> countryFinalList = new ArrayList<AllDetailsBean>();
+	        countryList.forEach(country -> {
+	            AllDetailsBean countryDetails = new AllDetailsBean();
 
-			countryList.forEach(country -> {
-				AllDetailsBean countryDetails = new AllDetailsBean();
+	            countryDetails.setCountryid(country.getCountryid());
+	            countryDetails.setCountryname(country.getCountryname());
+	            countryDetails.setActiveflag(country.getActiveflag());
+	            countryDetails.setCreateby(country.getCreateby());
 
-				countryDetails.setCountryid(country.getCountryid());
-				countryDetails.setCountryname(country.getCountryname());
-				countryDetails.setActiveflag(country.getActiveflag());
-				countryDetails.setCreateby(country.getCreateby());
+	            User user = userRepository.geUserDetailsByuserid(country.getCreateby());
+	            if (user != null) {
+	                countryDetails.setCreatename(user.getName());
+	            }
 
-				User user = userRepository.geUserDetailsByuserid(country.getCreateby());
-				if (user != null) {
-					countryDetails.setCreatename(user.getName());
-				}
+	            countryDetails.setCreatedt(country.getCreatedt());
+	            countryDetails.setModby(country.getModby());
 
-				countryDetails.setCreatedt(country.getCreatedt());
+	            if (country.getModby() != null) {
+	                User usermodby = userRepository.geUserDetailsByuserid(country.getModby());
+	                if (usermodby != null) {
+	                    countryDetails.setModname(usermodby.getName());
+	                }
+	            }
 
-				countryDetails.setModby(country.getModby());
+	            countryDetails.setModdt(country.getModdt());
+	            countryFinalList.add(countryDetails);
+	        });
 
-				if (country.getModby() != null) {
-					User usermodby = userRepository.geUserDetailsByuserid(country.getCreateby());
-					if (usermodby != null) {
-
-						countryDetails.setModname(usermodby.getName());
-					}
-				}
-
-				countryDetails.setModdt(country.getModdt());
-
-				countryFinalList.add(countryDetails);
-
-			});
-
-			return countryFinalList;
-		}
+	        return countryFinalList;
+	    }
 	}
 
 	@Override
@@ -115,8 +107,7 @@ public class CountryServiceImpl implements CountryService {
 		if (!duplicateCountryNameFlag) {
 			Country countryId = countryRepository.getAllCountryByCountryId(country.getCountryid());
 			if (countryId.getCountryid() != 0) {
-				countryRepository.updateCountryDetails
-				(country.getCountryname(), country.getModdt(), country.getModby(),
+				countryRepository.updateCountryDetails(country.getCountryname(), country.getModdt(), country.getModby(),
 						country.getCountryid());
 			} else {
 				throw new CountryNotFoundException("Country Not found with this country id");
