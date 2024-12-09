@@ -22,22 +22,45 @@ import com.tourism.travel_canvas.repository.RoleRepository;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-	@Autowired
+//	@Autowired
+//	private RoleRepository roleRepository;
+//
+//	@Autowired
+//	private UserRepository userRepository;
+
+//	private final RoleRepository roleRepository;
+//    private final UserRepository userRepository;
+
+	// Constructor with both dependencies
+//    @Autowired
+//    public RoleServiceImpl(RoleRepository roleRepository, UserRepository userRepository) {
+//        this.roleRepository = roleRepository;
+//        this.userRepository = userRepository;
+//    }
+
 	private RoleRepository roleRepository;
+	private UserRepository userRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	public RoleServiceImpl(RoleRepository roleRepository, UserRepository userRepository) {
+		this.roleRepository = roleRepository;
+		this.userRepository = userRepository;
+	}
+
+	public RoleServiceImpl() {
+		super();
+	}
 
 //	public RoleServiceImpl(RoleRepository roleRepository) {
 //
 //		this.roleRepository = roleRepository;
 //	}
-	
-	public RoleServiceImpl(RoleRepository roleRepository,UserRepository userRepository)
-	{
-		this.roleRepository = roleRepository;
-		this.userRepository=userRepository;
-	}
+//	
+//	public RoleServiceImpl(RoleRepository roleRepository,UserRepository userRepository)
+//	{
+//		this.roleRepository = roleRepository;
+//		this.userRepository=userRepository;
+//	}
 
 	@Override
 	public List<Role> getAllRoles() {
@@ -139,21 +162,23 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 //
-	@Override
-	public void updateRoledetails(Role role) throws IOException {
-
-		boolean duplicateRoleNameFlag = roleRepository.getAllRoles().stream()
-				.anyMatch(r -> r.getRolename().equalsIgnoreCase(role.getRolename()));
-
-		if (!duplicateRoleNameFlag) {
-
-			 roleRepository.updateRoledetails(role.getRolename(), role.getModdt(), role.getModby(),
-					role.getRoleid());
-
-		} else {
-			throw new UpdateFailedException("Role name already exists, update not possible");
-		}
-	}
+//	@Override
+//	public Role updateRoledetails(Role role) throws IOException {
+//
+//		boolean duplicateRoleNameFlag = roleRepository.getAllRoles().stream()
+//				.anyMatch(r -> r.getRolename().equalsIgnoreCase(role.getRolename()));
+//
+//		if (!duplicateRoleNameFlag) {
+//
+//			Role existingRole = roleRepository.updateRoledetails(role.getRolename(), role.getModdt(), role.getModby(),
+//					role.getRoleid());
+//
+//			return existingRole;
+//
+//		} else {
+//			throw new UpdateFailedException("Role name already exists, update not possible");
+//		}
+//	}
 //
 //	@Override
 //	public Role deleteRoledetails(Role role) throws IOException {

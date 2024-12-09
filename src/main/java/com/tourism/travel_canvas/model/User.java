@@ -1,7 +1,7 @@
 package com.tourism.travel_canvas.model;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,9 +29,9 @@ public class User {
 
 	private Integer countryid;
 	private String email;
+	private Integer phone;
 	private String password;
 	private Character activeflag;
-
 
 	private Integer createby;
 
@@ -88,6 +88,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getPhone() {
+		return phone;
+	}
+
+	public void setPhone(Integer phone) {
+		this.phone = phone;
 	}
 
 	public Integer getCreateby() {
@@ -168,8 +176,7 @@ public class User {
 
 	public User() {
 		super();
-		
+
 	}
-	
 
 }
