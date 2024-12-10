@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tourism.travel_canvas.model.EmailRequest;
@@ -33,6 +34,13 @@ public class EmailRequestController {
 	public ResponseEntity<EmailRequest> saveEmailDetails(@RequestBody EmailRequest emailRequest) {
 		EmailRequest saveEmailDetails = emailRequestService.saveEmailDetails(emailRequest);
 		return new ResponseEntity<>(saveEmailDetails, HttpStatus.CREATED);
+	}
+
+	@PostMapping("/sendotp")
+	public ResponseEntity<String> sendOtp(@RequestParam String email) {
+		String otp = String.valueOf((int) (Math.random() * 9000) + 1000); // Generate 4-digit OTP
+		emailRequestService.sendOtpEmail(email, otp);
+		return ResponseEntity.ok("OTP sent successfully!");
 	}
 
 }

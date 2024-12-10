@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,6 +15,7 @@ import javax.persistence.Table;
 public class City {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cityid;
     private Integer countryid;
     private String cityname;

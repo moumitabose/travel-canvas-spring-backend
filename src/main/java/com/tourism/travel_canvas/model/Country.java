@@ -2,8 +2,9 @@ package com.tourism.travel_canvas.model;
 
 import java.time.LocalDateTime;
 
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,17 +15,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Country {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer countryid;
 	private String countryname;
 	private Character activeflag;
 	private Integer createby;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime createdt;
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+	private LocalDateTime createdt;
 
-    private Integer modby;  // Changed to Integer instead of Optional<Integer>
-    private LocalDateTime moddt;
-    
+	private Integer modby; // Changed to Integer instead of Optional<Integer>
+	private LocalDateTime moddt;
+
 	public Country(Integer countryid, String countryname, Character activeflag, Integer createby,
 			LocalDateTime createdt) {
 		super();
@@ -112,7 +114,5 @@ public class Country {
 		return "Country [countryid=" + countryid + ", countryname=" + countryname + ", activeflag=" + activeflag
 				+ ", createby=" + createby + ", createdt=" + createdt + ", modby=" + modby + ", moddt=" + moddt + "]";
 	}
-	
 
-	
 }

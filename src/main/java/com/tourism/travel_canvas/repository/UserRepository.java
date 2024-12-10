@@ -18,7 +18,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 			+ "ORDER BY userid ASC  ", nativeQuery = true)
 	public List<AllDetails> getAllUserDetails();
 
-	@Query(value = "SELECT u.* FROM tourism.user u WHERE u.userid=:userid", nativeQuery = true)
+	@Query(value = "SELECT u.* FROM tourism.user u WHERE u.userid=:userid AND u.activeflag='Y' ORDER BY userid ASC ", 
+			nativeQuery = true)
 	public User geUserDetailsByuserid(Integer userid);
 
 

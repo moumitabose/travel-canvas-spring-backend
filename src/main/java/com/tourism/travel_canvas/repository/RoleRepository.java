@@ -17,10 +17,11 @@ import com.tourism.travel_canvas.model.Role;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-	@Query(value = "SELECT r.* FROM tourism.role r WHERE r.activeflag='Y'", nativeQuery = true)
+	@Query(value = "SELECT r.* FROM tourism.role r WHERE r.activeflag='Y' ORDER BY roleid ASC", nativeQuery = true)
 	public List<Role> getAllRoles();
 
-	@Query(value = "SELECT r.* FROM tourism.role r WHERE r.activeflag='Y' AND r.roleid=:roleid", nativeQuery = true)
+	@Query(value = "SELECT r.* FROM tourism.role r WHERE r.activeflag='Y' AND r.roleid=:roleid ORDER BY roleid ASC",
+			nativeQuery = true)
 	public Role getRoleDetailsByRoleId(Integer roleid);
 
 	@Query(value = "SELECT r.* FROM tourism.role r WHERE r.activeflag='Y' AND LOWER(r.rolename) = LOWER(:rolename)",

@@ -21,8 +21,9 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer userid;
-
+	private String username;
 	private String name;
+
 	@ManyToOne
 	@JoinColumn(name = "roleid", referencedColumnName = "roleid") // foreign key
 	private Role role; // Establishes the relationship with the Role table
@@ -48,6 +49,14 @@ public class User {
 
 	public void setUserid(Integer userid) {
 		this.userid = userid;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getName() {

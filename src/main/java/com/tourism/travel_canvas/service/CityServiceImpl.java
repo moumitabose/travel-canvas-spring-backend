@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.tourism.travel_canvas.model.City;
 import com.tourism.travel_canvas.outputbean.AllCityDetails;
 import com.tourism.travel_canvas.outputbean.AllCityDetailsBean;
 import com.tourism.travel_canvas.repository.CityRepository;
@@ -27,7 +25,7 @@ public class CityServiceImpl implements CityService {
 		cityListBean.forEach(city -> {
 			AllCityDetailsBean allCityDetailsBean = new AllCityDetailsBean();
 
-//			allCityDetailsBean.setDestinationid(des.getDestinationid());
+
 			allCityDetailsBean.setCountryid(city.getCountryid());
 			allCityDetailsBean.setCountryname(city.getCountryname());
 			allCityDetailsBean.setCityid(city.getCityid());

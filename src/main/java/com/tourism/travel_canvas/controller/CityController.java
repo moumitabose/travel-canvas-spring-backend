@@ -3,6 +3,7 @@ package com.tourism.travel_canvas.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +12,7 @@ import com.tourism.travel_canvas.outputbean.AllCityDetailsBean;
 import com.tourism.travel_canvas.service.CityService;
 
 @RestController
+@CrossOrigin
 public class CityController {
 	
 	@Autowired

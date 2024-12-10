@@ -1,6 +1,7 @@
 package com.tourism.travel_canvas.controller;
 
-import java.util.HashMap;
+import java.text.ParseException;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,8 @@ public class LoginController {
 	private LoginServiceImpl loginservice;
 
 	@PostMapping("/login")
-	public ResponseEntity<Login> findLoginByUserId(@RequestBody Login login) {
-		
-		Login resultLogin = loginservice.findLoginByUserId(login);
-		
-		return ResponseEntity.ok(resultLogin);
-
-	}
+    public ResponseEntity<Map<String, Object>> findLoginByUserId(@RequestBody Login login) throws ParseException {
+        return loginservice.findLoginByUserId(login);
+    }
 
 }

@@ -1,7 +1,5 @@
 package com.tourism.travel_canvas.service;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.mail.SimpleMailMessage;
@@ -28,18 +26,30 @@ public class EmailRequestServiceImpl implements EmailRequestService {
 		emailSender.send(message);
 
 	}
+	
+	@Override
+	public void sendOtpEmail(String recipientEmail, String otp) {
+		
+		EmailRequest emailRequest = new EmailRequest();
+        emailRequest.setRecipient(recipientEmail);
+        emailRequest.setSubject("Your OTP Code");
+        emailRequest.setBody("Your OTP is: " + otp);
+        sendEmail(emailRequest);
+		
+	}
+
 
 	@Override
 	public EmailRequest saveEmailDetails(EmailRequest emailRequest) {
-		
-		EmailRequest saveEmailDetails= emailRequestRepository.save(emailRequest);
-		
-		if(saveEmailDetails==null)
-		{
+
+		EmailRequest saveEmailDetails = emailRequestRepository.save(emailRequest);
+
+		if (saveEmailDetails == null) {
 			throw new SaveFailedException("Fail to save email details");
 		}
-		
+
 		return saveEmailDetails;
 	}
 
+	
 }

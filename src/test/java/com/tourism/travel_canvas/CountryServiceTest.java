@@ -8,6 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -153,7 +154,7 @@ public class CountryServiceTest {
 	}
 
 	@Test
-	void saveCountryDetails_test() {
+	void saveCountryDetails_test() throws IOException {
 
 		Country savedCountry = new Country(1, "India", 'Y', 1, LocalDateTime.now());
 

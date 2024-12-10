@@ -1,10 +1,10 @@
 package com.tourism.travel_canvas.service;
 
-import java.time.LocalDateTime;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import com.tourism.travel_canvas.model.Country;
 import com.tourism.travel_canvas.model.User;
 import com.tourism.travel_canvas.outputbean.AllDetailsBean;
 import com.tourism.travel_canvas.repository.CountryRepository;
-import com.tourism.travel_canvas.repository.RoleRepository;
 import com.tourism.travel_canvas.repository.UserRepository;
 
 @Service
@@ -48,46 +47,46 @@ public class CountryServiceImpl implements CountryService {
 
 	@Override
 	public List<AllDetailsBean> getAllCountriesDetails() {
-	    List<Country> countryList = countryRepository.getAllCountriesDetails();
+		List<Country> countryList = countryRepository.getAllCountriesDetails();
 
-	    if (countryList == null || countryList.isEmpty()) {
-	        throw new CountryNotFoundException("Empty List of Country");
-	    } else {
-	        List<AllDetailsBean> countryFinalList = new ArrayList<>();
+		if (countryList == null || countryList.isEmpty()) {
+			throw new CountryNotFoundException("Empty List of Country");
+		} else {
+			List<AllDetailsBean> countryFinalList = new ArrayList<>();
 
-	        countryList.forEach(country -> {
-	            AllDetailsBean countryDetails = new AllDetailsBean();
+			countryList.forEach(country -> {
+				AllDetailsBean countryDetails = new AllDetailsBean();
 
-	            countryDetails.setCountryid(country.getCountryid());
-	            countryDetails.setCountryname(country.getCountryname());
-	            countryDetails.setActiveflag(country.getActiveflag());
-	            countryDetails.setCreateby(country.getCreateby());
+				countryDetails.setCountryid(country.getCountryid());
+				countryDetails.setCountryname(country.getCountryname());
+				countryDetails.setActiveflag(country.getActiveflag());
+				countryDetails.setCreateby(country.getCreateby());
 
-	            User user = userRepository.geUserDetailsByuserid(country.getCreateby());
-	            if (user != null) {
-	                countryDetails.setCreatename(user.getName());
-	            }
+				User user = userRepository.geUserDetailsByuserid(country.getCreateby());
+				if (user != null) {
+					countryDetails.setCreatename(user.getName());
+				}
 
-	            countryDetails.setCreatedt(country.getCreatedt());
-	            countryDetails.setModby(country.getModby());
+				countryDetails.setCreatedt(country.getCreatedt());
+				countryDetails.setModby(country.getModby());
 
-	            if (country.getModby() != null) {
-	                User usermodby = userRepository.geUserDetailsByuserid(country.getModby());
-	                if (usermodby != null) {
-	                    countryDetails.setModname(usermodby.getName());
-	                }
-	            }
+				if (country.getModby() != null) {
+					User usermodby = userRepository.geUserDetailsByuserid(country.getModby());
+					if (usermodby != null) {
+						countryDetails.setModname(usermodby.getName());
+					}
+				}
 
-	            countryDetails.setModdt(country.getModdt());
-	            countryFinalList.add(countryDetails);
-	        });
+				countryDetails.setModdt(country.getModdt());
+				countryFinalList.add(countryDetails);
+			});
 
-	        return countryFinalList;
-	    }
+			return countryFinalList;
+		}
 	}
 
 	@Override
-	public Country saveCountryDetails(Country country) {
+	public Country saveCountryDetails(Country country) throws IOException{
 
 		Country savedCountry = countryRepository.save(country);
 
@@ -99,7 +98,7 @@ public class CountryServiceImpl implements CountryService {
 	}
 
 	@Override
-	public void updateCountryDetails(Country country) {
+	public void updateCountryDetails(Country country)  throws IOException{
 
 		boolean duplicateCountryNameFlag = countryRepository.getAllCountries().stream()
 				.anyMatch(r -> r.getCountryname().equalsIgnoreCase(country.getCountryname()));

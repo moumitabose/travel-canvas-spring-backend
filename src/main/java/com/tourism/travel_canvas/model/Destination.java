@@ -19,8 +19,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Destination {
 
 	@Id
-//	@SequenceGenerator(initialValue = 1, name = "company_master_seq", allocationSize = 0)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_master_seq")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer destinationid;
 	private Integer cityid;
 	private Integer countryid;
